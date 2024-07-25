@@ -1,0 +1,78 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.iml
+*.log
+
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+out/
+target/
+*.swp
+*.swo
+*.bak
+
+# Spring Boot
+spring.log
+git remote set-url origin https://github.com/SamSam-kakotechboot/travel_BE.git
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/
+target/
+!src/main/resources/static/
+!src/main/resources/templates/
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# Lombok
+**/lombok.config
+
+# Project specific
+.env
+
+# Log files
+*.log
+
+# MySQL
+*.sql
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*.pid
+*.seed
+*.pid.lock
+
+# JUnit
+test-results/
+test-output/
