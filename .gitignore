@@ -105,3 +105,6 @@ bin/
 
 # Project specific files
 HELP.md
+
+# Ignore application-specific YAML files
+travelcommerce/src/main/resources/application-*.yml
