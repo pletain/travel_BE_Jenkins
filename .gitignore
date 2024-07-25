@@ -1,8 +1,10 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
 # Editor-based HTTP Client requests
 /httpRequests/
+
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
@@ -28,7 +30,7 @@ target/
 
 # Spring Boot
 spring.log
-git remote set-url origin https://github.com/SamSam-kakotechboot/travel_BE.git
+
 # Maven
 pom.xml.tag
 pom.xml.releaseBackup
@@ -46,6 +48,8 @@ target/
 .gradle/
 build/
 !gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
 # Lombok
 **/lombok.config
@@ -76,3 +80,28 @@ $RECYCLE.BIN/
 # JUnit
 test-results/
 test-output/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+# Project specific files
+HELP.md
