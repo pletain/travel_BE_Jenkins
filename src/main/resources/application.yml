@@ -1,8 +1,8 @@
 spring:
-  config:
-    import: "application-dev.yml"
+  profiles:
+    active: ${PROFILE}
   datasource:
-    url: ${DB_URL}
+    url: jdbc:log4jdbc:mysql://${DB_ENDPOINT}/ecdb?useUnicode=true&characterEncoding=UTF-8
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -13,3 +13,12 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+
+cloud:
+  aws:
+    region:
+      static: ap-northeast-2
+    s3:
+      bucket: ${BUCKET_NAME}
+    stack:
+      auto: false
