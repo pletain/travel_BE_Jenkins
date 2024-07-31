@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS review (
     comment         text                                            NOT NULL                                    COMMENT '후기',
     rating          FLOAT                                           NOT NULL                                    COMMENT '별점',
     regist_date     DATETIME                                        NOT NULL    DEFAULT CURRENT_TIMESTAMP       COMMENT '작성일',
-    FOREIGN KEY (user_id)   REFERENCES user(user_id)                                                            COMMENT 'user_table의 user_id를 참조하는 외래 키',
-    FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id)                                                        COMMENT 'ticket 테이블의 ticket_id를 참조하는 외래 키'
+    FOREIGN KEY (user_id)   REFERENCES user(user_id),
+    FOREIGN KEY (ticket_id) REFERENCES ticket(ticket_id)
 ) COMMENT '리뷰 정보를 저장하는 테이블';
 
