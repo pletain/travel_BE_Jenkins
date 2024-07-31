@@ -43,6 +43,7 @@ buildNumber.properties
 target/
 !src/main/resources/static/
 !src/main/resources/templates/
+!src/main/resources/migration/
 
 # Gradle
 .gradle/
