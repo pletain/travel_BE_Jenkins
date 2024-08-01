@@ -1,6 +1,7 @@
 package com.samsam.travel.travelcommerce.dao;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,18 +23,23 @@ public class User {
     private String userId;
 
     @Column(name = "password", nullable = false, length = 255)
+    @NotNull
     private String password;
 
     @Column(name = "name", nullable = false, length = 255)
+    @NotNull
     private String name;
 
     @Column(name = "phone", nullable = false, length = 255)
+    @NotNull
     private String phone;
 
     @Column(name = "role", nullable = false, length = 255)
+    @NotNull
     private String role;
 
     @Column(name = "regist_date", nullable = false, updatable = false, length = 255)
+    @NotNull
     private LocalDateTime registDate;
 
     @Override

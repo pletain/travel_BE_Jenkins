@@ -1,6 +1,7 @@
 package com.samsam.travel.travelcommerce.dao;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,23 +24,29 @@ public class Review {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
+    @NotNull
     private Orders orders;
 
     @ManyToOne
     @JoinColumn(name = "ticket_id", nullable = false)
+    @NotNull
     private Ticket ticket;
 
     @Column(name = "comment", nullable = false)
+    @NotNull
     private String comment;
 
     @Column(name = "rating", nullable = false)
+    @NotNull
     private float rating;
 
     @Column(name = "regist_date", nullable = false, updatable = false)
+    @NotNull
     private LocalDateTime registDate;
 
     @Override

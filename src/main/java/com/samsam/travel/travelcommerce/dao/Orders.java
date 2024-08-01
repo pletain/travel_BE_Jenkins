@@ -1,6 +1,8 @@
 package com.samsam.travel.travelcommerce.dao;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,22 +25,30 @@ public class Orders {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "ticket_id", nullable = false)
+    @NotNull
     private Ticket ticket;
 
     @Column(name = "order_date", nullable = false, updatable = false)
+    @NotNull
     private LocalDateTime orderDate;
 
     @Column(name = "total_amount", nullable = false)
+    @NotNull
+    @Min(1)
     private int totalAmount;
 
     @Column(name = "quantity", nullable = false)
+    @NotNull
+    @Min(1)
     private int quantity;
 
     @Column(name = "status", nullable = false, length = 1)
+    @NotNull
     private String status;
 
     @Override
