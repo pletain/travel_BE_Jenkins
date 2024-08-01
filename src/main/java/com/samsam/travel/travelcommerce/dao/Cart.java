@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -34,7 +33,6 @@ public class Cart {
     private int quantity;
 
     @Column(name = "delete_yn", nullable = false, length = 1)
-    @ColumnDefault("N")
     private String deleteYn;
 
     @Column(name = "regist_date", nullable = false, updatable = false)
@@ -42,20 +40,6 @@ public class Cart {
 
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
-
-    @PrePersist
-    protected void onCreate() {
-        this.registDate = LocalDateTime.now();
-        this.updateDate = LocalDateTime.now();
-        if (this.deleteYn == null) {
-            this.deleteYn = "N"; // 기본 삭제 여부 값 설정
-        }
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updateDate = LocalDateTime.now();
-    }
 
     @Override
     public boolean equals(Object o) {

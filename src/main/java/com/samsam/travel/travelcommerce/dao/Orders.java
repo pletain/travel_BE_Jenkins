@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -40,16 +39,7 @@ public class Orders {
     private int quantity;
 
     @Column(name = "status", nullable = false, length = 1)
-    @ColumnDefault("P")
     private String status;
-
-    @PrePersist
-    protected void onCreate() {
-        this.orderDate = LocalDateTime.now();
-        if (this.status == null) {
-            this.status = "P"; // 기본 상태값 설정
-        }
-    }
 
     @Override
     public boolean equals(Object o) {

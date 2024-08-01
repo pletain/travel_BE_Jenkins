@@ -42,11 +42,6 @@ public class Review {
     @Column(name = "regist_date", nullable = false, updatable = false)
     private LocalDateTime registDate;
 
-    @PrePersist
-    protected void onCreate() {
-        this.registDate = LocalDateTime.now();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -46,11 +45,9 @@ public class Ticket {
     private LocalDate endDate;
 
     @Column(name = "delete_yn", nullable = false, length = 1)
-    @ColumnDefault("N")
     private String deleteYn;
 
     @Column(name = "veiw_yn", nullable = false, length = 1)
-    @ColumnDefault("N")
     private String veiwYn;
 
     @Column(name = "regist_date", nullable = false, updatable = false)
@@ -58,23 +55,6 @@ public class Ticket {
 
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
-
-    @PrePersist
-    protected void onCreate() {
-        this.registDate = LocalDateTime.now();
-        this.updateDate = LocalDateTime.now();
-        if (this.deleteYn == null) {
-            this.deleteYn = "N"; // 기본 삭제 여부 값 설정
-        }
-        if (this.veiwYn == null) {
-            this.veiwYn = "N"; // 기본 노출 여부 값 설정
-        }
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        this.updateDate = LocalDateTime.now();
-    }
 
     @Override
     public boolean equals(Object o) {

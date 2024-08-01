@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -32,19 +31,10 @@ public class User {
     private String phone;
 
     @Column(name = "role", nullable = false, length = 255)
-    @ColumnDefault("NORMAL") // 기본값을 NORMAL로 설정
     private String role;
 
     @Column(name = "regist_date", nullable = false, updatable = false, length = 255)
     private LocalDateTime registDate;
-
-    @PrePersist
-    protected void onCreate() {
-        this.registDate = LocalDateTime.now();
-        if (this.role == null) {
-            this.role = "NORMAL"; // 기본 권한 값 설정
-        }
-    }
 
     @Override
     public boolean equals(Object o) {
