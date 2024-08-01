@@ -1,12 +1,18 @@
 package com.samsam.travel.travelcommerce.dao;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "cart")
 public class Cart {
 
@@ -39,6 +45,9 @@ public class Cart {
     protected void onCreate() {
         this.registDate = LocalDateTime.now();
         this.updateDate = LocalDateTime.now();
+        if (this.deleteYn == null) {
+            this.deleteYn = "N"; // 기본 삭제 여부 값 설정
+        }
     }
 
     @PreUpdate
