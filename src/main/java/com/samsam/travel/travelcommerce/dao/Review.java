@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class Review {
 
     @Id
-    @Column(name = "review_id")
+    @Column(name = "review_id", length = 255)
     private String reviewId;
 
     @ManyToOne
@@ -32,7 +32,11 @@ public class Review {
     @Column(name = "rating", nullable = false)
     private float rating;
 
-    @Column(name = "regist_date", nullable = false)
+    @Column(name = "regist_date", nullable = false, updatable = false)
     private LocalDateTime registDate;
 
+    @PrePersist
+    protected void onCreate() {
+        this.registDate = LocalDateTime.now();
+    }
 }

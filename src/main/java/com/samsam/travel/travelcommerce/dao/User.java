@@ -1,10 +1,8 @@
 package com.samsam.travel.travelcommerce.dao;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 
@@ -14,21 +12,30 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    @Column(name = "user_id")
+    @Column(name = "user_id", length = 255)
     private String userId;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, length = 255)
     private String password;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @Column(name = "phone", nullable = false)
+    @Column(name = "phone", nullable = false, length = 255)
     private String phone;
 
-    @Column(name = "role", nullable = false)
+    @Column(name = "role", nullable = false, length = 255)
+    @ColumnDefault("NORMAL") // 기본값을 NORMAL로 설정
     private String role;
 
-    @Column(name = "regist_date", nullable = false)
+    @Column(name = "regist_date", nullable = false, updatable = false, length = 255)
     private LocalDateTime registDate;
+
+    @PrePersist
+    protected void onCreate() {
+        this.registDate = LocalDateTime.now();
+        if (this.role == null) {
+            this.role = "NORMAL"; // 기본 권한 값 설정
+        }
+    }
 }

@@ -2,6 +2,7 @@ package com.samsam.travel.travelcommerce.dao;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +12,7 @@ import java.time.LocalDateTime;
 public class Orders {
 
     @Id
-    @Column(name = "order_id")
+    @Column(name = "order_id", length = 255)
     private String orderId;
 
     @ManyToOne
@@ -22,7 +23,7 @@ public class Orders {
     @JoinColumn(name = "ticket_id", nullable = false)
     private Ticket ticket;
 
-    @Column(name = "order_date", nullable = false)
+    @Column(name = "order_date", nullable = false, updatable = false)
     private LocalDateTime orderDate;
 
     @Column(name = "total_amount", nullable = false)
@@ -31,7 +32,15 @@ public class Orders {
     @Column(name = "quantity", nullable = false)
     private int quantity;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status", nullable = false, length = 1)
+    @ColumnDefault("P")
     private String status;
 
+    @PrePersist
+    protected void onCreate() {
+        this.orderDate = LocalDateTime.now();
+        if (this.status == null) {
+            this.status = "P"; // 기본 상태값 설정
+        }
+    }
 }
