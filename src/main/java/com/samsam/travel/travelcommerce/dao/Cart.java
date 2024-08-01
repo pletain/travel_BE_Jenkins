@@ -1,12 +1,14 @@
 package com.samsam.travel.travelcommerce.dao;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
+
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -53,5 +55,18 @@ public class Cart {
     @PreUpdate
     protected void onUpdate() {
         this.updateDate = LocalDateTime.now();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Cart cart = (Cart) o;
+        return Objects.equals(cartId, cart.cartId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cartId);
     }
 }

@@ -9,6 +9,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -73,5 +74,18 @@ public class Ticket {
     @PreUpdate
     protected void onUpdate() {
         this.updateDate = LocalDateTime.now();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ticket ticket = (Ticket) o;
+        return Objects.equals(ticketId, ticket.ticketId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(ticketId);
     }
 }
