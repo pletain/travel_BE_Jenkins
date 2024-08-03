@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -17,6 +19,8 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicInsert
+@DynamicUpdate
 @Table(name = "ticket")
 public class Ticket {
 
@@ -55,19 +59,15 @@ public class Ticket {
     private LocalDate endDate;
 
     @Column(name = "delete_yn", nullable = false, length = 1)
-    @NotNull
     private String deleteYn;
 
     @Column(name = "veiw_yn", nullable = false, length = 1)
-    @NotNull
     private String veiwYn;
 
     @Column(name = "regist_date", nullable = false, updatable = false)
-    @NotNull
     private LocalDateTime registDate;
 
     @Column(name = "update_date", nullable = false)
-    @NotNull
     private LocalDateTime updateDate;
 
     @Override
