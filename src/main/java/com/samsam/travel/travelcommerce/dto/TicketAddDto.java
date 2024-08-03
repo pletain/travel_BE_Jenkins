@@ -1,6 +1,5 @@
 package com.samsam.travel.travelcommerce.dto;
 
-import com.samsam.travel.travelcommerce.dao.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,20 +16,4 @@ public class TicketAddDto {
     private int price;
     private LocalDate startDate;
     private LocalDate endDate;
-
-    public TicketAddDto(
-        String title,
-        String contents,
-        String place,
-        int price,
-        LocalDate startDate,
-        LocalDate endDate
-    ) {
-        this.title = title;
-        this.contents = contents;
-        this.place = place;
-        this.price = price;
-        this.startDate = startDate;
-        this.endDate = endDate;
-    }
 }
