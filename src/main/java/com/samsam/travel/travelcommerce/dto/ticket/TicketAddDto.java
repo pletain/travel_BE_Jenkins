@@ -1,4 +1,4 @@
-package com.samsam.travel.travelcommerce.dto;
+package com.samsam.travel.travelcommerce.dto.ticket;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
