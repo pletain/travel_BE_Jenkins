@@ -3,7 +3,8 @@ package com.samsam.travel.travelcommerce.domain.ticket.service;
 import com.samsam.travel.travelcommerce.dao.Ticket;
 import com.samsam.travel.travelcommerce.dao.User;
 import com.samsam.travel.travelcommerce.domain.ticket.repository.TicketRepository;
-import com.samsam.travel.travelcommerce.dto.TicketAddDto;
+import com.samsam.travel.travelcommerce.dto.ticket.TicketAddDto;
+import com.samsam.travel.travelcommerce.dto.ticket.TicketModifyDto;
 import com.samsam.travel.travelcommerce.utils.Common;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,25 @@ public class TicketServiceImpl implements TicketService {
                 .build();
 
         return repository.save(ticket);
+    }
+    public Object updateTicket(TicketModifyDto ticketModifyDto) {
+        User user = new User()
+                .builder()
+                .userId("test")
+                .build();
+
+        Ticket ticket = new Ticket().builder()
+                .ticketId(ticketModifyDto.getTicketId())
+                .user(user)
+                .title(ticketModifyDto.getTitle())
+                .contents(ticketModifyDto.getContents())
+                .place(ticketModifyDto.getPlace())
+                .price(ticketModifyDto.getPrice())
+                .startDate(ticketModifyDto.getStartDate())
+                .endDate(ticketModifyDto.getEndDate())
+                .build();
+
+        return repository.updateTicket(ticket);
     }
 
 }
