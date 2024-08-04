@@ -61,9 +61,6 @@ build/
 # Log files
 *.log
 
-# MySQL
-*.sql
-
 # MacOS
 .DS_Store
 
