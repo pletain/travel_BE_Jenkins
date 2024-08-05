@@ -1,6 +1,6 @@
 package com.samsam.travel.travelcommerce.domain.user.service;
 
-import com.samsam.travel.travelcommerce.domain.user.exception.UserDuplicateException;
+import com.samsam.travel.travelcommerce.global.error.exception.UserDuplicateException;
 import com.samsam.travel.travelcommerce.domain.user.repository.UserRepository;
 import com.samsam.travel.travelcommerce.dto.user.SignUpRequest;
 import com.samsam.travel.travelcommerce.entity.User;
