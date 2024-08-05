@@ -1,4 +1,4 @@
-package com.samsam.travel.travelcommerce.dao;
+package com.samsam.travel.travelcommerce.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -54,4 +54,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(userId);
     }
+
 }
