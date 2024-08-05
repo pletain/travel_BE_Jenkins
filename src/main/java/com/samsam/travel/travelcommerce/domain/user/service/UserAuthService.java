@@ -1,6 +1,10 @@
 package com.samsam.travel.travelcommerce.domain.user.service;
 
+<<<<<<< HEAD
 import com.samsam.travel.travelcommerce.global.error.exception.UserDuplicateException;
+=======
+import com.samsam.travel.travelcommerce.domain.user.exception.UserDuplicateException;
+>>>>>>> f7c903b (feat: 유저 회원 가입 기능 구현(#5))
 import com.samsam.travel.travelcommerce.domain.user.repository.UserRepository;
 import com.samsam.travel.travelcommerce.dto.user.SignUpRequest;
 import com.samsam.travel.travelcommerce.entity.User;
@@ -56,7 +60,7 @@ public class UserAuthService {
                 .userId(dto.getId())
                 .password(dto.getPassword())
                 .name(dto.getName())
-                .role(String.valueOf(Role.NORMAL))
+                .role(Role.NORMAL)
                 .phone(dto.getPhone())
                 .registDate(LocalDateTime.now())
                 .build();
