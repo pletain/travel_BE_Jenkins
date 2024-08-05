@@ -1,6 +1,8 @@
 package com.samsam.travel.travelcommerce.domain.user.api;
 
 import com.samsam.travel.travelcommerce.domain.user.service.UserAuthService;
+import com.samsam.travel.travelcommerce.dto.user.LoginRequest;
+import com.samsam.travel.travelcommerce.dto.user.LoginResponse;
 import com.samsam.travel.travelcommerce.dto.user.SignUpRequest;
 import com.samsam.travel.travelcommerce.utils.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +30,19 @@ public class AuthController {
     private final UserAuthService userAuthService;
 
     /**
-     * 회원가입 API 요청을 처리합니다.
+     * 로그인 API
+     *
+     * @param loginRequest 로그인 요청 데이터
+     * @return 로그인 성공 여부와 로그인 응답 데이터
+     */
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
+        LoginResponse result = userAuthService.login(loginRequest);
+        return ResponseEntity.ok(result);
+    }
+
+    /**
+     * 회원 가입 API
      *
      * 이 메서드는 {@link UserAuthService#signUp(SignUpRequest)} 메서드를 호출하여 회원가입 요청을 처리합니다.
      * 그런 다음, 제공된 {@link SignUpRequest#getId()}와 {@link com.samsam.travel.travelcommerce.global.status.CommonCode#SUCCESS_SIGN_UP} 상수를 사용하여 성공 응답 메시지를 구성합니다.
