@@ -1,10 +1,10 @@
 package com.samsam.travel.travelcommerce.domain.ticket.service;
 
-import com.samsam.travel.travelcommerce.dao.Ticket;
-import com.samsam.travel.travelcommerce.dao.User;
 import com.samsam.travel.travelcommerce.domain.ticket.repository.TicketRepository;
 import com.samsam.travel.travelcommerce.dto.ticket.TicketAddDto;
 import com.samsam.travel.travelcommerce.dto.ticket.TicketModifyDto;
+import com.samsam.travel.travelcommerce.entity.Ticket;
+import com.samsam.travel.travelcommerce.entity.User;
 import com.samsam.travel.travelcommerce.utils.Common;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -18,6 +18,7 @@ public class TicketServiceImpl implements TicketService {
     @Resource
     Common common;
 
+    @Override
     public Object addTicket(TicketAddDto ticketAddDto) {
         String ticketId = common.getTargetUuid("ticket");
 
@@ -39,6 +40,8 @@ public class TicketServiceImpl implements TicketService {
 
         return repository.save(ticket);
     }
+
+    @Override
     public Object updateTicket(TicketModifyDto ticketModifyDto) {
         User user = new User()
                 .builder()
