@@ -1,6 +1,6 @@
 package com.samsam.travel.travelcommerce.domain.ticket.repository;
 
-import com.samsam.travel.travelcommerce.dao.Ticket;
+import com.samsam.travel.travelcommerce.entity.Ticket;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
