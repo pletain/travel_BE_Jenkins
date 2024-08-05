@@ -1,6 +1,7 @@
 package com.samsam.travel.travelcommerce.utils;
 
 import com.samsam.travel.travelcommerce.global.status.CommonCode;
+import lombok.Getter;
 
 /**
  * 이 클래스는 일반적인 API 응답 구조를 나타냅니다. 상태 코드, 메시지, 데이터로 구성됩니다.
@@ -10,6 +11,7 @@ import com.samsam.travel.travelcommerce.global.status.CommonCode;
  * @author lavin
  * @since 1.0.0
  */
+@Getter
 public class ApiResponse<T> {
     private String statusCode;
     private String message;
