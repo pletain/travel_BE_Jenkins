@@ -1,6 +1,6 @@
 package com.samsam.travel.travelcommerce.security.config;
 
-import com.samsam.travel.travelcommerce.dao.model.Role;
+import com.samsam.travel.travelcommerce.entity.model.Role;
 import com.samsam.travel.travelcommerce.security.auth.jwt.JwtFilter;
 import com.samsam.travel.travelcommerce.security.error.handler.JwtExceptionFilter;
 import lombok.RequiredArgsConstructor;
