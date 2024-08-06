@@ -78,6 +78,17 @@ public enum ErrorCode {
      */
     JWT_UNSUPPORTED(HttpStatus.FORBIDDEN, "4034", "지원하지 않는 JWT 토큰 형식입니다."),
 
+    /**
+     * 요청하신 API를 찾을 수 없는 것을 나타내는 에러
+     */
+    API_NOT_FOUND(HttpStatus.NOT_FOUND, "404", "요청하신 API 찾을 수 없습니다."),
+
+    /**
+     * 토큰이 변조되거나 만료되어 토큰이 유효하지 않는 경우
+     */
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "401", "유효하지 않은 JWT입니다."),
+
+
     ;
 
     private final HttpStatus httpStatus;

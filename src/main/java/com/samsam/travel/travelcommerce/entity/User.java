@@ -1,5 +1,6 @@
 package com.samsam.travel.travelcommerce.entity;
 
+import com.samsam.travel.travelcommerce.entity.model.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -36,7 +37,8 @@ public class User {
 
     @Column(name = "role", nullable = false, length = 255)
     @NotNull
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @Column(name = "regist_date", nullable = false, updatable = false, length = 255)
     @NotNull

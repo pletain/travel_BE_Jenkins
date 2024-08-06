@@ -19,7 +19,7 @@ public enum CommonCode {
     /**
      * 회원가입이 성공적으로 완료되었음을 나타내는 상태 코드.
      */
-    SUCCESS_SIGN_UP(HttpStatus.OK, "2000", "회원가입이 완료되었습니다."),
+    SUCCESS_SIGN_UP(HttpStatus.OK, "2000", "%s 회원가입이 완료되었습니다."),
 
     /**
      * 로그인이 성공적으로 완료되었음을 나타내는 상태 코드.
