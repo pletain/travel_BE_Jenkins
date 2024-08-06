@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.naming.AuthenticationException;
 
@@ -48,6 +49,20 @@ public class GlobalExceptionHandler {
         log.error("[ERROR]: handle Authentication", e);
         ErrorResponse response = new ErrorResponse(e.getMessage(), "LOGIN_FAIL");
         return new ResponseEntity<>(response, HttpStatus.UNAUTHORIZED);
+    }
+
+    /**
+     * NoHandlerFoundException 예외를 처리합니다.
+     *
+     * @param e NoHandlerFoundException 발생한 예외.
+     * @return NoHandlerFoundException 발생한 경우 ErrorResponse를 포함하는 ResponseEntity
+     *         HTTP 404 상태와 NOT_FOUND 오류 코드로 반환합니다.
+     */
+    @ExceptionHandler(NoHandlerFoundException.class)
+    protected ResponseEntity<ErrorResponse> handleNoHandlerFoundException(NoHandlerFoundException e) {
+        log.error("[Error]: handle NoHandlerFoundException", e);
+        ErrorResponse response = new ErrorResponse(ErrorCode.API_NOT_FOUND);
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     /**
