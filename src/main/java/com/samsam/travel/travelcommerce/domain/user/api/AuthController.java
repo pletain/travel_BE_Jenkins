@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_LOGIN;
 import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_SIGN_UP;
 
 /**
@@ -36,9 +37,10 @@ public class AuthController {
      * @return 로그인 성공 여부와 로그인 응답 데이터
      */
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
-        LoginResponse result = userAuthService.login(loginRequest);
-        return ResponseEntity.ok(result);
+    public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest loginRequest) {
+        LoginResponse loginResponse = userAuthService.login(loginRequest);
+        ApiResponse<LoginResponse> response = ApiResponse.createResponse(SUCCESS_LOGIN, loginResponse);
+        return ResponseEntity.status(SUCCESS_LOGIN.getHttpStatus()).body(response);
     }
 
     /**
