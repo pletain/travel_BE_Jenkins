@@ -49,9 +49,10 @@ public class CustomPasswordAuthenticationManager implements AuthenticationProvid
         );
         token.setId(user.getUserId());
         token.setName(user.getName());
-        token.setRole(user.getRole());
+        token.setRole(String.valueOf(user.getRole()));
         return token;
     }
+
 
     /**
      * 이 AuthenticationProvider가 지원하는 Authentication 클래스인지 확인합니다.
