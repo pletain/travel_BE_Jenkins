@@ -1,21 +1,33 @@
 package com.samsam.travel.travelcommerce.domain.user.service;
 
 import com.samsam.travel.travelcommerce.domain.user.repository.UserRepository;
+import com.samsam.travel.travelcommerce.dto.user.LoginRequest;
+import com.samsam.travel.travelcommerce.dto.user.LoginResponse;
 import com.samsam.travel.travelcommerce.dto.user.SignUpRequest;
 import com.samsam.travel.travelcommerce.entity.User;
 import com.samsam.travel.travelcommerce.entity.model.Role;
 import com.samsam.travel.travelcommerce.global.error.exception.UserDuplicateException;
+import com.samsam.travel.travelcommerce.global.error.exception.UserLoginException;
+import com.samsam.travel.travelcommerce.global.error.exception.UserNotFoundException;
 import com.samsam.travel.travelcommerce.global.status.ErrorCode;
 import com.samsam.travel.travelcommerce.security.auth.jwt.CustomPasswordAuthenticationToken;
 import com.samsam.travel.travelcommerce.security.auth.jwt.JwtAuthToken;
 import com.samsam.travel.travelcommerce.security.auth.jwt.JwtAuthTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
+
+import static com.samsam.travel.travelcommerce.global.status.ErrorCode.NOT_EXIST_USER;
+import static com.samsam.travel.travelcommerce.global.status.ErrorCode.USER_PASSWORD_NOT_MATCHED;
 
 /**
  * 이 클래스는 사용자 인증 및 권한 부여 서비스를 제공합니다.
@@ -61,6 +73,39 @@ public class UserAuthService {
                 .registDate(LocalDateTime.now())
                 .build();
         userRepository.save(newUser);
+    }
+
+    /**
+     * 성공적인 로그인을 위해 사용자를 인증하고 JWT 토큰을 생성합니다.
+     *
+     * @param dto 사용자의 아이디와 비밀번호가 포함된 로그인 요청입니다.
+     * @return JWT 토큰과 사용자 역할을 포함하는 LoginResponse 개체입니다.
+     * @throws AuthenticationException If the authentication fails.
+     */
+    public LoginResponse login(LoginRequest dto) throws AuthenticationException {
+        // 사용자가 존재하는지 확인
+        Optional<User> userOptional = userRepository.findById(dto.getId());
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException(NOT_EXIST_USER);
+        }
+
+        CustomPasswordAuthenticationToken token = new CustomPasswordAuthenticationToken(
+                dto.getId(), dto.getPassword()
+        );
+
+        try {
+            Authentication authentication = authenticationManager.authenticate(token);
+
+            String role = authentication.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .findAny().orElseThrow(() -> new BadCredentialsException("Role information is missing."));
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwtToken = createToken((CustomPasswordAuthenticationToken) authentication);
+            return new LoginResponse(jwtToken, role);
+        } catch (BadCredentialsException ex) {
+            throw new UserLoginException(USER_PASSWORD_NOT_MATCHED);
+        }
     }
 
     /**
