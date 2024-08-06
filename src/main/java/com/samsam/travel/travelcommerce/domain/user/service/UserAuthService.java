@@ -1,10 +1,10 @@
 package com.samsam.travel.travelcommerce.domain.user.service;
 
-import com.samsam.travel.travelcommerce.global.error.exception.UserDuplicateException;
 import com.samsam.travel.travelcommerce.domain.user.repository.UserRepository;
 import com.samsam.travel.travelcommerce.dto.user.SignUpRequest;
 import com.samsam.travel.travelcommerce.entity.User;
 import com.samsam.travel.travelcommerce.entity.model.Role;
+import com.samsam.travel.travelcommerce.global.error.exception.UserDuplicateException;
 import com.samsam.travel.travelcommerce.global.status.ErrorCode;
 import com.samsam.travel.travelcommerce.security.auth.jwt.CustomPasswordAuthenticationToken;
 import com.samsam.travel.travelcommerce.security.auth.jwt.JwtAuthToken;
@@ -21,7 +21,7 @@ import java.util.Optional;
  * 이 클래스는 사용자 인증 및 권한 부여 서비스를 제공합니다.
  * 로그인 및 회원 가입을 위한 메서드를 포함합니다.
  *
- * @author 당신의 이름
+ * @author lavin
  * @since 1.0
  */
 @Service
