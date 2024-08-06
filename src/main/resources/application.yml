@@ -22,3 +22,11 @@ cloud:
       bucket: ${BUCKET_NAME}
     stack:
       auto: false
+
+jwt:
+  expiration: 604800000
+  prefix: Bearer
+  header: Authorization
+
+allowed:
+  origins: http://localhost:3000,http://localhost:5500
