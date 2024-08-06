@@ -7,6 +7,8 @@ import com.samsam.travel.travelcommerce.dto.user.SignUpRequest;
 import com.samsam.travel.travelcommerce.entity.User;
 import com.samsam.travel.travelcommerce.entity.model.Role;
 import com.samsam.travel.travelcommerce.global.error.exception.UserDuplicateException;
+import com.samsam.travel.travelcommerce.global.error.exception.UserLoginException;
+import com.samsam.travel.travelcommerce.global.error.exception.UserNotFoundException;
 import com.samsam.travel.travelcommerce.global.status.ErrorCode;
 import com.samsam.travel.travelcommerce.security.auth.jwt.CustomPasswordAuthenticationToken;
 import com.samsam.travel.travelcommerce.security.auth.jwt.JwtAuthToken;
@@ -23,6 +25,9 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
+
+import static com.samsam.travel.travelcommerce.global.status.ErrorCode.NOT_EXIST_USER;
+import static com.samsam.travel.travelcommerce.global.status.ErrorCode.USER_PASSWORD_NOT_MATCHED;
 
 /**
  * 이 클래스는 사용자 인증 및 권한 부여 서비스를 제공합니다.
@@ -78,20 +83,29 @@ public class UserAuthService {
      * @throws AuthenticationException If the authentication fails.
      */
     public LoginResponse login(LoginRequest dto) throws AuthenticationException {
+        // 사용자가 존재하는지 확인
+        Optional<User> userOptional = userRepository.findById(dto.getId());
+        if (userOptional.isEmpty()) {
+            throw new UserNotFoundException(NOT_EXIST_USER);
+        }
+
         CustomPasswordAuthenticationToken token = new CustomPasswordAuthenticationToken(
                 dto.getId(), dto.getPassword()
         );
 
-        Authentication authentication = authenticationManager.authenticate(token);
+        try {
+            Authentication authentication = authenticationManager.authenticate(token);
 
-        String role = authentication.getAuthorities().stream()
-                .map(GrantedAuthority::getAuthority)
-                .findAny().orElseThrow(()
-                        -> new BadCredentialsException("Role information is missing."));
+            String role = authentication.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .findAny().orElseThrow(() -> new BadCredentialsException("Role information is missing."));
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwtToken = createToken((CustomPasswordAuthenticationToken) authentication);
-        return new LoginResponse(jwtToken, role);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwtToken = createToken((CustomPasswordAuthenticationToken) authentication);
+            return new LoginResponse(jwtToken, role);
+        } catch (BadCredentialsException ex) {
+            throw new UserLoginException(USER_PASSWORD_NOT_MATCHED);
+        }
     }
 
     /**
