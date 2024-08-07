@@ -4,16 +4,15 @@ import com.samsam.travel.travelcommerce.domain.ticket.service.TicketService;
 import com.samsam.travel.travelcommerce.dto.ticket.TicketDto;
 import com.samsam.travel.travelcommerce.dto.ticket.TicketResponseDto;
 import com.samsam.travel.travelcommerce.entity.User;
-import com.samsam.travel.travelcommerce.global.status.CommonCode;
 import com.samsam.travel.travelcommerce.utils.ApiResponse;
+import com.samsam.travel.travelcommerce.utils.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_ADD_TICKET;
-import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_MODIFY_TICKET;
+import static com.samsam.travel.travelcommerce.global.status.CommonCode.*;
 
 /**
  * 상품(티켓)에 관련된 API를 수행하는 컨트롤러입니다.
@@ -38,9 +37,9 @@ public class TicketController {
      */
     @PostMapping("/regist")
     public ResponseEntity<ApiResponse<TicketResponseDto>> addTicket(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute TicketDto ticketDto) {
-        setTicketDto(userDetails, ticketDto);
+        setUser(userDetails, ticketDto);
         TicketResponseDto responseDto = ticketService.addTicket(ticketDto);
-        return buildResponseEntity(SUCCESS_ADD_TICKET, responseDto);
+        return ResponseUtil.createApiResponse(SUCCESS_ADD_TICKET, responseDto);
     }
 
     /**
@@ -48,25 +47,30 @@ public class TicketController {
      *
      * @param userDetails 인증된 관리자의 세부 정보. Spring Security 컨텍스트에서 가져옵니다.
      * @param ticketDto 상품에 대한 정보
-     * @return 상품 수정 여부, 문구와 상품 데이터
+     * @return 상품 수정 성공 여부, 문구와 상품 데이터
      */
     @PutMapping("/modify")
     public ResponseEntity<ApiResponse<Boolean>> updateTicket(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute TicketDto ticketDto) {
-        setTicketDto(userDetails, ticketDto);
+        setUser(userDetails, ticketDto);
         boolean updateYn = ticketService.updateTicket(ticketDto) > 0;
-        return buildResponseEntity(SUCCESS_MODIFY_TICKET, updateYn);
+        return ResponseUtil.createApiResponse(SUCCESS_MODIFY_TICKET, updateYn);
     }
 
     /**
-     * ResposeEntity 생성 메서드
+     * 상품 삭제 API
      *
-     * @param code 상태 코드와 해당 메시지 담고 있는 부분
-     * @param data 데이터를 담고 있는 부분
-     * @return 상태 코드와 메시지, 데이트를 담고 있는 ResponseEntity
+     * @param userDetails 인증된 관리자의 세부 정보. Spring Security 컨텍스트에서 가져옵니다.
+     * @param ticketId 상품 pk 값을 담는 변수
+     * @return 상품 삭제 성공 여부, 문구와 상품 데이터
      */
-    private <T> ResponseEntity<ApiResponse<T>> buildResponseEntity(CommonCode code, T data) {
-        ApiResponse<T> response = ApiResponse.createResponse(code, data);
-        return ResponseEntity.status(code.getHttpStatus()).body(response);
+    @DeleteMapping("/remove")
+    public ResponseEntity<ApiResponse<Boolean>> removeTicket(@AuthenticationPrincipal UserDetails userDetails, @RequestParam String ticketId) {
+        TicketDto ticketDto = new TicketDto();
+        ticketDto.setTicketId(ticketId);
+        setUser(userDetails, ticketDto);
+
+        ticketService.removeTicket(ticketDto);
+        return ResponseUtil.createApiResponse(SUCCESS_DELETE_TICKET, true);
     }
 
     /**
@@ -76,7 +80,7 @@ public class TicketController {
      * @param ticketDto 상품에 대한 정보
      * @return 상품 수정 여부, 문구와 상품 데이터
      */
-    public TicketDto setTicketDto(UserDetails userDetails, TicketDto ticketDto) {
+    public TicketDto setUser(UserDetails userDetails, TicketDto ticketDto) {
         ticketDto.setUser(getUser(userDetails));
         return ticketDto;
     }
