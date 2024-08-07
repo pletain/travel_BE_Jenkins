@@ -20,23 +20,13 @@ public class TicketServiceImpl implements TicketService {
     @Override
     public TicketResponseDto addTicket(TicketDto ticketDto) {
         String ticketId = common.getTargetUuid("ticket");
+        ticketDto.setTicketId(ticketId);
 
-
-        ticketDto.setTicketIdAndUser(ticketId, getUserTestId());
         return new TicketResponseDto().convertEntityToDto(repository.save(Ticket.convertDtoToEntity(ticketDto)));
     }
 
     @Override
     public int updateTicket(TicketDto ticketDto) {
-        ticketDto.setUser(getUserTestId());
         return repository.updateTicket(Ticket.convertDtoToEntity(ticketDto));
     }
-
-    public User getUserTestId() {
-        return  User
-                .builder()
-                .userId("test")
-                .build();
-    }
-
 }
