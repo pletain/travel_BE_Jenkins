@@ -75,7 +75,7 @@ public class SecurityConfig {
                         .requestMatchers("/swagger*/**").permitAll()
                         .requestMatchers("/auth/**").permitAll() // auth로 시작하는 URI는 인증 없이 접근 가능
                         .requestMatchers("/api/master/**").hasAuthority(Role.MASTER.toString()) // /api/master/**는 MASTER 권한이 있는 사용자만 접근 가능
-                        .requestMatchers("/api/admin/**").hasAnyRole(Role.ADMIN.toString(), Role.MASTER.toString()) // /api/admin/**는 ADMIN 또는 MASTER 권한이 있는 사용자만 접근 가능
+                        .requestMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.toString(), Role.MASTER.toString()) // /api/admin/**는 ADMIN 또는 MASTER 권한이 있는 사용자만 접근 가능
                         .requestMatchers("/api/**").authenticated() // /api/**로 시작하는 모든 URI는 인증 필요
                         .anyRequest().authenticated() // 그 외의 모든 요청은 인증 필요
                 )
