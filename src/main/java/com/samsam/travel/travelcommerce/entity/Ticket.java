@@ -1,5 +1,6 @@
 package com.samsam.travel.travelcommerce.entity;
 
+import com.samsam.travel.travelcommerce.dto.ticket.TicketDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -81,5 +82,18 @@ public class Ticket {
     @Override
     public int hashCode() {
         return Objects.hash(ticketId);
+    }
+
+    public static Ticket convertDtoToEntity(TicketDto ticketDto) {
+        return new Ticket().builder()
+                .ticketId(ticketDto.getTicketId())
+                .user(ticketDto.getUser())
+                .title(ticketDto.getTitle())
+                .contents(ticketDto.getContents())
+                .place(ticketDto.getPlace())
+                .price(ticketDto.getPrice())
+                .startDate(ticketDto.getStartDate())
+                .endDate(ticketDto.getEndDate())
+                .build();
     }
 }
