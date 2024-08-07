@@ -49,6 +49,12 @@ public enum CommonCode {
     SUCCESS_DEPRIVATION(HttpStatus.OK, "2005", "%s 계정에 관리자 권한이 박탈됐습니다."),
 
     /**
+     * 역할 할당 성공 상태를 나타내는 상태 코드.
+     * %s는 아이디, 변경된 권한으로 대체됩니다.
+     */
+    SUCCESS_ASSIGN_ROLE(HttpStatus.OK, "2006", "%s 계정의 권한이 %s로 변경되었습니다."),
+
+    /**
      * 상품 등록이 성공적으로 등록되었음을 나타내는 상태 코드.
      */
     SUCCESS_ADD_TICKET(HttpStatus.OK, "2100", "상품이 등록 되었습니다."),
@@ -57,6 +63,7 @@ public enum CommonCode {
      * 상품 수정이 성공적으로 수정되었음을 나타내는 상태 코드.
      */
     SUCCESS_MODIFY_TICKET(HttpStatus.OK, "2101", "상품이 수정 되었습니다."),
+
 
     ;
 
