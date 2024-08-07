@@ -1,11 +1,10 @@
 package com.samsam.travel.travelcommerce.domain.ticket.service;
 
-import com.samsam.travel.travelcommerce.dto.ticket.TicketAddDto;
-import com.samsam.travel.travelcommerce.dto.ticket.TicketModifyDto;
+import com.samsam.travel.travelcommerce.dto.ticket.TicketDto;
 
 public interface TicketService {
 
-    public Object addTicket(TicketAddDto ticketAddDto);
+    public Object addTicket(TicketDto ticketDto);
 
-    public Object updateTicket(TicketModifyDto ticketModifyDto);
+    public Object updateTicket(TicketDto ticketDto);
 }
