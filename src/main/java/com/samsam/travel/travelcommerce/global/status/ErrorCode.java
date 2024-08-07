@@ -37,6 +37,11 @@ public enum ErrorCode {
     NO_AUTH(HttpStatus.FORBIDDEN, "4030", "권한이 없는 유저입니다."),
 
     /**
+     * 마스터 관리자만 접속할 수 있는 것을 나타내는 에러 코드
+     */
+    USER_NOT_MASTER(HttpStatus.FORBIDDEN, "4033", "마스터 관리자만 접속할 수 있습니다."),
+
+    /**
      * id가 중복된 것을 나타내는 에러 코드.
      */
     USER_ID_DUPLICATE(HttpStatus.NOT_ACCEPTABLE, "4060", "id가 중복되었습니다."),
