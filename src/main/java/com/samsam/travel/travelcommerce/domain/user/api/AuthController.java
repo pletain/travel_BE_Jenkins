@@ -5,6 +5,7 @@ import com.samsam.travel.travelcommerce.dto.user.LoginRequest;
 import com.samsam.travel.travelcommerce.dto.user.LoginResponse;
 import com.samsam.travel.travelcommerce.dto.user.SignUpRequest;
 import com.samsam.travel.travelcommerce.utils.ApiResponse;
+import com.samsam.travel.travelcommerce.utils.ResponseUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +26,7 @@ import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 public class AuthController {
-    /**
-     * 사용자 인증 서비스
-     */
+
     private final UserAuthService userAuthService;
 
     /**
@@ -39,8 +38,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<ApiResponse<LoginResponse>> login(@RequestBody LoginRequest loginRequest) {
         LoginResponse loginResponse = userAuthService.login(loginRequest);
-        ApiResponse<LoginResponse> response = ApiResponse.createResponse(SUCCESS_LOGIN, loginResponse);
-        return ResponseEntity.status(SUCCESS_LOGIN.getHttpStatus()).body(response);
+        return ResponseUtil.createApiResponse(SUCCESS_LOGIN, loginResponse);
     }
 
     /**
@@ -57,7 +55,6 @@ public class AuthController {
     public ResponseEntity<ApiResponse> signUp(@RequestBody SignUpRequest signUpRequest) {
         userAuthService.signUp(signUpRequest);
         String formattedMessage = String.format(SUCCESS_SIGN_UP.getMessage(), signUpRequest.getId());
-        ApiResponse response = ApiResponse.createResponse(SUCCESS_SIGN_UP, formattedMessage);
-        return ResponseEntity.status(SUCCESS_SIGN_UP.getHttpStatus()).body(response);
+        return ResponseUtil.createApiResponse(SUCCESS_SIGN_UP, formattedMessage);
     }
 }
