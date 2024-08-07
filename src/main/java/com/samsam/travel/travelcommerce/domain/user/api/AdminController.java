@@ -4,17 +4,15 @@ import com.samsam.travel.travelcommerce.domain.user.service.AdminService;
 import com.samsam.travel.travelcommerce.dto.user.UserInfoResponse;
 import com.samsam.travel.travelcommerce.utils.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_ALL_USER_INFO;
+import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_ASSIGN_ROLE;
 
 /**
  * 이 컨트롤러는 관리자 관련 API를 처리하는 컨트롤러입니다.
@@ -22,7 +20,6 @@ import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_
  * @author lavin
  * @since 1.0
  */
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/admin")
@@ -39,9 +36,25 @@ public class AdminController {
      */
     @GetMapping("/users")
     public ResponseEntity<ApiResponse<List<UserInfoResponse>>> fetchAllUsers(@AuthenticationPrincipal UserDetails userDetails) {
-        log.info("getAllUserInfo called by {}", userDetails.getUsername());
         List<UserInfoResponse> userInfoResponses = adminService.getAllUserInfo(userDetails.getUsername());
         ApiResponse<List<UserInfoResponse>> response = ApiResponse.createResponse(SUCCESS_ALL_USER_INFO, userInfoResponses);
         return ResponseEntity.status(SUCCESS_ALL_USER_INFO.getHttpStatus()).body(response);
     }
+
+    /**
+ * 지정된 사용자에게 새로운 역할을 할당합니다.
+ *
+ * @param userDetails 인증된 관리자의 세부 정보. Spring Security 컨텍스트에서 가져옵니다.
+ * @param userId       역할을 할당할 사용자 ID.
+ * @param newRole      새로운 역할.
+ * @return ResponseEntity<ApiResponse>에 ApiResponse를 포함하고 있는 ResponseEntity.
+ *         ApiResponse에는 상태 코드 200(OK)이 있으며, data 필드에 성공 메시지가 있습니다.
+ */
+@PutMapping("/users/{userId}/role")
+public ResponseEntity<ApiResponse> assignRoleToUser(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String userId, @RequestParam String newRole) {
+    adminService.updateUserRole(userId, newRole, userDetails.getUsername());
+    String formattedMessage = String.format(SUCCESS_ASSIGN_ROLE.getMessage(), userId, newRole);
+    ApiResponse response = ApiResponse.createResponse(SUCCESS_ASSIGN_ROLE, formattedMessage);
+    return ResponseEntity.status(SUCCESS_ASSIGN_ROLE.getHttpStatus()).body(response);
+}
 }
