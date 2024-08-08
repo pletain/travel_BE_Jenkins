@@ -1,5 +1,6 @@
 package com.samsam.travel.travelcommerce.entity;
 
+import com.samsam.travel.travelcommerce.entity.model.OrderStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -47,9 +48,10 @@ public class Orders {
     @Min(1)
     private int quantity;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 1)
     @NotNull
-    private String status;
+    private OrderStatus status;
 
     @Override
     public boolean equals(Object o) {
