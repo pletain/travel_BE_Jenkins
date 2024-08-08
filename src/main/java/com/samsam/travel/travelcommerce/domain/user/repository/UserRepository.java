@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<User, String> {
      * @param userId 사용자 ID.
      * @return 사용자 ID에 해당하는 역할.
      */
-    @Query("select u.role from User u where u.userId = ?1")
+    @Query("SELECT u.role FROM User u WHERE u.userId = ?1")
     Role findRoleByUserId(String userId);
 
     /**
@@ -28,6 +28,6 @@ public interface UserRepository extends JpaRepository<User, String> {
      */
     @Transactional
     @Modifying
-    @Query("update User u set u.role = ?1 where u.userId = ?2")
+    @Query("UPDATE User u SET u.role = ?1 WHERE u.userId = ?2")
     int updateRoleByUserId(Role role, String userId);
 }
