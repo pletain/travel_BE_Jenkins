@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_ALL_ORDER_LIST;
-import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_ORDER_CREATE;
+import static com.samsam.travel.travelcommerce.global.status.CommonCode.*;
 
 /**
  * 주문 관련 작업을 처리하는 컨트롤러입니다.
@@ -47,5 +46,20 @@ public class OrderController {
     public ResponseEntity<ApiResponse<List<OrderListResponse>>> getAllOrders(@AuthenticationPrincipal UserDetails userDetails) {
         List<OrderListResponse> allOrders = orderService.getAllOrders(userDetails.getUsername());
         return ResponseUtil.createApiResponse(SUCCESS_ALL_ORDER_LIST, allOrders);
+    }
+
+    /**
+     * 주문을 취소합니다.
+     *
+     * @param userDetails 취소할 주문을 요청한 사용자. 인증 주체에서 가져옵니다.
+     * @param orderId 취소할 주문의 ID.
+     * @return 성공 상태와 메시지를 포함하는 API 응답을 포함하는 응답 엔티티.
+     *         취소 성공 시, SUCCESS_ORDER_CANCEL 상태와 취소된 주문 ID를 포함하는 메시지를 반환합니다.
+     */
+    @DeleteMapping("/{orderId}")
+    public ResponseEntity<ApiResponse> cancelOrder(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String orderId) {
+        orderService.cancelOrder(orderId, userDetails.getUsername());
+        String formattedMessage = String.format(SUCCESS_ORDER_CANCEL.getMessage(), orderId);
+        return ResponseUtil.createApiResponse(SUCCESS_ORDER_CANCEL, formattedMessage);
     }
 }
