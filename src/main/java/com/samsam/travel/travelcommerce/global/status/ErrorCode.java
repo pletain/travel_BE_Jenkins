@@ -51,6 +51,11 @@ public enum ErrorCode {
      */
     USER_PASSWORD_NOT_MATCHED(HttpStatus.NOT_ACCEPTABLE, "4061", "비밀번호가 틀렸습니다."),
 
+    /**
+     * 존재하지 않는 티켓을 나타내는 에러 코드.
+     */
+    NOT_EXIST_TICKET(HttpStatus.NOT_FOUND, "4043", "존재하지 않는 티켓입니다."),
+
     // Common
     /**
      * 허용되지 않은 메소드를 나타내는 에러 코드.

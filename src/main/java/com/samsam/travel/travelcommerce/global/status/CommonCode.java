@@ -70,6 +70,11 @@ public enum CommonCode {
     SUCCESS_DELETE_TICKET(HttpStatus.OK, "2102", "상품이 삭제 되었습니다."),
 
 
+    /**
+     * 주문 접수 성공 상태를 나타내는 상태 코드.
+     */
+    SUCCESS_ORDER_CREATE(HttpStatus.OK, "2200", "주문이 성공적으로 접수되었습니다."),
+
     ;
 
     private final HttpStatus httpStatus;
