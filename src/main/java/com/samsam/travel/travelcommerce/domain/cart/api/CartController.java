@@ -9,6 +9,7 @@ import com.samsam.travel.travelcommerce.entity.User;
 import com.samsam.travel.travelcommerce.global.error.exception.CartInvalidInputException;
 import com.samsam.travel.travelcommerce.utils.ApiResponse;
 import com.samsam.travel.travelcommerce.utils.ResponseUtil;
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,8 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_ADD_CART;
-import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_VIEW_CART;
+import static com.samsam.travel.travelcommerce.global.status.CommonCode.*;
 import static com.samsam.travel.travelcommerce.global.status.ErrorCode.BAD_REQUEST_INVALID_CART_VALUES;
 
 /**
@@ -66,6 +66,21 @@ public class CartController {
         cartDto.setQuantity(cartAddDto.getQuantity());
 
         return ResponseUtil.createApiResponse(SUCCESS_ADD_CART, cartService.addMyCart(cartDto));
+    }
+
+    /**
+     * 내 장바구니 삭제
+     *
+     * @param cartId 삭제할 장바구니 키
+     * @return 조회 성공 여부 및 문구, 장바구느에 담긴 티켓 데이터
+     */
+    @DeleteMapping("/delete")
+    public ResponseEntity<ApiResponse<Boolean>> deleteMyCart(@RequestParam String cartId) {
+        if(StringUtils.isBlank(cartId)) {
+            throw new CartInvalidInputException(BAD_REQUEST_INVALID_CART_VALUES);
+        }
+
+        return ResponseUtil.createApiResponse(SUCCESS_DELETE_CART, cartService.deleteMyCart(cartId));
     }
 
     /**

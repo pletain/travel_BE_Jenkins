@@ -89,6 +89,11 @@ public enum CommonCode {
      */
     SUCCESS_ADD_CART(HttpStatus.OK, "2111", "장바구니에 상품이 담겼습니다."),
 
+    /**
+     * 장바구니에서 상품을 성공적으로 삭제 되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_DELETE_CART(HttpStatus.OK, "2112", "장바구니에서 상품이 삭제 되었습니다."),
+
 
     /**
      * 주문 접수 성공 상태를 나타내는 상태 코드.

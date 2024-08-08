@@ -10,4 +10,6 @@ public interface CartService {
     public List<TicketDto> getMyCartTicket(CartDto cartDto);
 
     public CartDto addMyCart(CartDto cartDto);
+
+    public boolean deleteMyCart(String cartId);
 }

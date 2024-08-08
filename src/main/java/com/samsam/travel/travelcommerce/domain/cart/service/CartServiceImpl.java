@@ -38,4 +38,9 @@ public class CartServiceImpl implements CartService {
         cartDto.setCartId(cartId);
         return new CartDto().convertEntityToDto(repository.save(new Cart().convertDtoToEntity(cartDto)));
     }
+
+    @Override
+    public boolean deleteMyCart(String cartId) {
+        return repository.deleteCart(cartId) > 0;
+    }
 }

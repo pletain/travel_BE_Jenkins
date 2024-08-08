@@ -32,7 +32,6 @@ public interface CartRepository extends JpaRepository<Cart, String> {
     )
     Cart findMyCartTicket(@Param("cartDto") CartDto cartDto);
 
-
     @Modifying
     @Transactional
     @Query(
@@ -43,4 +42,13 @@ public interface CartRepository extends JpaRepository<Cart, String> {
             "AND c.ticket   =   :#{#cart.ticket} "
     )
     int updateCart(@Param("cart") Cart cart);
+
+    @Modifying
+    @Transactional
+    @Query(
+        "UPDATE Cart c " +
+        "SET c.deleteYn     =   'Y' " +
+        "WHERE c.cartId     =   :#{#cartId} "
+    )
+    int deleteCart(@Param("cartId") String cartId);
 }
