@@ -6,15 +6,12 @@ import com.samsam.travel.travelcommerce.dto.ticket.TicketDto;
 import com.samsam.travel.travelcommerce.dto.ticket.TicketResponseDto;
 import com.samsam.travel.travelcommerce.dto.ticket.TicketSearchResponseDto;
 import com.samsam.travel.travelcommerce.entity.Ticket;
-import com.samsam.travel.travelcommerce.entity.User;
 import com.samsam.travel.travelcommerce.utils.Common;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 

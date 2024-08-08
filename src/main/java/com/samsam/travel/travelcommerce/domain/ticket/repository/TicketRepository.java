@@ -1,7 +1,5 @@
 package com.samsam.travel.travelcommerce.domain.ticket.repository;
 
-import com.samsam.travel.travelcommerce.dto.ticket.SearchDto;
-import com.samsam.travel.travelcommerce.dto.ticket.TicketSearchResponseDto;
 import com.samsam.travel.travelcommerce.entity.Ticket;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -43,7 +41,7 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
                 "t.registDate, " +
                 "t.updateDate, " +
                 "COALESCE(AVG(r.rating), 0) as avgRating " +
-            "FROM Ticket t " +
+            "FROM TicketAndReview t " +
                 "LEFT JOIN t.reviews r " +
             "WHERE t.title LIKE %:#{#keyword}% " +
                 "OR t.user.name LIKE %:#{#keyword}% " +

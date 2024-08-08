@@ -24,7 +24,7 @@ import java.util.Objects;
 @DynamicInsert
 @DynamicUpdate
 @Table(name = "ticket")
-public class Ticket {
+public class TicketAndReview {
 
     @Id
     @Column(name = "ticket_id", length = 255)
@@ -72,11 +72,14 @@ public class Ticket {
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
 
+    @OneToMany(mappedBy = "ticket")
+    private List<Review> reviews;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Ticket ticket = (Ticket) o;
+        TicketAndReview ticket = (TicketAndReview) o;
         return Objects.equals(ticketId, ticket.ticketId);
     }
 
@@ -85,8 +88,8 @@ public class Ticket {
         return Objects.hash(ticketId);
     }
 
-    public static Ticket convertDtoToEntity(TicketDto ticketDto) {
-        return new Ticket().builder()
+    public static TicketAndReview convertDtoToEntity(TicketDto ticketDto) {
+        return new TicketAndReview().builder()
                 .ticketId(ticketDto.getTicketId())
                 .user(ticketDto.getUser())
                 .title(ticketDto.getTitle())
