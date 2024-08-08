@@ -8,4 +8,6 @@ public interface TicketService {
     public TicketResponseDto addTicket(TicketDto ticketDto);
 
     public int updateTicket(TicketDto ticketDto);
+
+    public void removeTicket(TicketDto ticketDto);
 }

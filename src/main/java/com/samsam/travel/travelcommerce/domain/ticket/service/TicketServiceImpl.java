@@ -29,4 +29,9 @@ public class TicketServiceImpl implements TicketService {
     public int updateTicket(TicketDto ticketDto) {
         return repository.updateTicket(Ticket.convertDtoToEntity(ticketDto));
     }
+
+    @Override
+    public void removeTicket(TicketDto ticketDto) {
+        repository.delete(Ticket.convertDtoToEntity(ticketDto));
+    }
 }

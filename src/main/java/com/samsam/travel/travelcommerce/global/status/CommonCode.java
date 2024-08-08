@@ -64,6 +64,11 @@ public enum CommonCode {
      */
     SUCCESS_MODIFY_TICKET(HttpStatus.OK, "2101", "상품이 수정 되었습니다."),
 
+    /**
+     * 상품 삭제가 성공적으로 수정되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_DELETE_TICKET(HttpStatus.OK, "2102", "상품이 삭제 되었습니다."),
+
 
     ;
 
