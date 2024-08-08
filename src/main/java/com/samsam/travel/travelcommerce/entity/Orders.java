@@ -68,7 +68,14 @@ public class Orders {
     }
 
 
-    public OrderListResponse toOrderListResponse() {
+    /**
+ * 현재 {@link Orders} 객체를 {@link OrderListResponse} 객체로 변환합니다.
+ * 이 메서드는 주문 목록을 준비하기 위해 사용됩니다.
+ *
+ * @return {@link OrderListResponse} 객체, 주문 세부 정보를 포함합니다.
+ * @return 주문 ID, 사용자 ID, 티켓 ID, 주문 날짜, 총 금액, 수량, 상태
+ */
+public OrderListResponse toOrderListResponse() {
         return OrderListResponse.builder()
                 .orderId(this.orderId)
                 .userId(this.user.getUserId())
