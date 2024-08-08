@@ -63,8 +63,8 @@ public class Ticket {
     @Column(name = "delete_yn", nullable = false, length = 1)
     private String deleteYn;
 
-    @Column(name = "veiw_yn", nullable = false, length = 1)
-    private String veiwYn;
+    @Column(name = "view_yn", nullable = false, length = 1)
+    private String viewYn;
 
     @Column(name = "regist_date", nullable = false, updatable = false)
     private LocalDateTime registDate;
