@@ -2,6 +2,7 @@ package com.samsam.travel.travelcommerce.dto.ticket;
 
 import com.samsam.travel.travelcommerce.entity.Ticket;
 import com.samsam.travel.travelcommerce.entity.User;
+import io.micrometer.common.util.StringUtils;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -48,5 +49,17 @@ public class TicketDto {
                 ticket.getRegistDate(),
                 ticket.getUpdateDate()
         );
+    }
+
+    public boolean isValidate() {
+        return
+            !(
+                StringUtils.isNotBlank(title)
+                && StringUtils.isNotBlank(contents)
+                && StringUtils.isNotBlank(place)
+                && price > 0
+                && startDate != null
+                && endDate != null
+            );
     }
 }

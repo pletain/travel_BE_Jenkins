@@ -6,8 +6,10 @@ import com.samsam.travel.travelcommerce.dto.ticket.TicketDto;
 import com.samsam.travel.travelcommerce.dto.ticket.TicketResponseDto;
 import com.samsam.travel.travelcommerce.dto.ticket.TicketSearchResponseDto;
 import com.samsam.travel.travelcommerce.entity.User;
+import com.samsam.travel.travelcommerce.global.error.exception.TicketInvalidInputException;
 import com.samsam.travel.travelcommerce.utils.ApiResponse;
 import com.samsam.travel.travelcommerce.utils.ResponseUtil;
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.samsam.travel.travelcommerce.global.status.CommonCode.*;
+import static com.samsam.travel.travelcommerce.global.status.ErrorCode.BAD_REQUEST_INVALID_TICKET_VALUES;
 
 /**
  * 상품(티켓)에 관련된 API를 수행하는 컨트롤러입니다.
@@ -40,6 +43,10 @@ public class TicketController {
      */
     @GetMapping("/view/all")
     public ResponseEntity<ApiResponse<List<TicketSearchResponseDto>>> searchAllTicket(@ModelAttribute SearchDto searchDto) {
+        if(searchDto.isValidate()) {
+            throw new TicketInvalidInputException(BAD_REQUEST_INVALID_TICKET_VALUES);
+        }
+
         return ResponseUtil.createApiResponse(SUCCESS_VIEW_TICKET, ticketService.getAllTicket(searchDto));
     }
 
@@ -51,6 +58,10 @@ public class TicketController {
      */
     @GetMapping("/view/detail")
     public ResponseEntity<ApiResponse<TicketDto>> searchTicketDetail(@RequestParam String ticketId) {
+        if(StringUtils.isBlank(ticketId)) {
+            throw new TicketInvalidInputException(BAD_REQUEST_INVALID_TICKET_VALUES);
+        }
+
         return ResponseUtil.createApiResponse(SUCCESS_VIEW_DETAIL_TICKET, ticketService.getTicketDetail(ticketId));
     }
 
@@ -63,6 +74,10 @@ public class TicketController {
      */
     @PostMapping("/regist")
     public ResponseEntity<ApiResponse<TicketResponseDto>> addTicket(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute TicketDto ticketDto) {
+        if(ticketDto.isValidate()) {
+            throw new TicketInvalidInputException(BAD_REQUEST_INVALID_TICKET_VALUES);
+        }
+
         setUser(userDetails, ticketDto);
         TicketResponseDto responseDto = ticketService.addTicket(ticketDto);
         return ResponseUtil.createApiResponse(SUCCESS_ADD_TICKET, responseDto);
@@ -77,6 +92,10 @@ public class TicketController {
      */
     @PutMapping("/modify")
     public ResponseEntity<ApiResponse<Boolean>> updateTicket(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute TicketDto ticketDto) {
+        if(ticketDto.isValidate()) {
+            throw new TicketInvalidInputException(BAD_REQUEST_INVALID_TICKET_VALUES);
+        }
+
         setUser(userDetails, ticketDto);
         boolean updateYn = ticketService.updateTicket(ticketDto) > 0;
         return ResponseUtil.createApiResponse(SUCCESS_MODIFY_TICKET, updateYn);
@@ -91,6 +110,10 @@ public class TicketController {
      */
     @DeleteMapping("/remove")
     public ResponseEntity<ApiResponse<Boolean>> removeTicket(@AuthenticationPrincipal UserDetails userDetails, @RequestParam String ticketId) {
+        if(StringUtils.isBlank(ticketId)) {
+            throw new TicketInvalidInputException(BAD_REQUEST_INVALID_TICKET_VALUES);
+        }
+
         TicketDto ticketDto = new TicketDto();
         ticketDto.setTicketId(ticketId);
         setUser(userDetails, ticketDto);
