@@ -13,6 +13,7 @@ import org.hibernate.annotations.DynamicUpdate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -70,6 +71,9 @@ public class Ticket {
 
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
+
+    @OneToMany(mappedBy = "ticket")
+    private List<Review> reviews;
 
     @Override
     public boolean equals(Object o) {

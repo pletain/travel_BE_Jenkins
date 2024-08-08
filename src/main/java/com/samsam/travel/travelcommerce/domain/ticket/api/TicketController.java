@@ -1,8 +1,10 @@
 package com.samsam.travel.travelcommerce.domain.ticket.api;
 
 import com.samsam.travel.travelcommerce.domain.ticket.service.TicketService;
+import com.samsam.travel.travelcommerce.dto.ticket.SearchDto;
 import com.samsam.travel.travelcommerce.dto.ticket.TicketDto;
 import com.samsam.travel.travelcommerce.dto.ticket.TicketResponseDto;
+import com.samsam.travel.travelcommerce.dto.ticket.TicketSearchResponseDto;
 import com.samsam.travel.travelcommerce.entity.User;
 import com.samsam.travel.travelcommerce.utils.ApiResponse;
 import com.samsam.travel.travelcommerce.utils.ResponseUtil;
@@ -11,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.samsam.travel.travelcommerce.global.status.CommonCode.*;
 
@@ -27,6 +31,17 @@ import static com.samsam.travel.travelcommerce.global.status.CommonCode.*;
 public class TicketController {
 
     private final TicketService ticketService;
+
+    /**
+     * 상품 리스트 조회 API
+     *
+     * @param searchDto 검색 정보가 담겨져 있음(keyword, pageNum, pageSize)
+     * @return 상품 삭제 성공 여부, 문구와 상품 데이터
+     */
+    @GetMapping("/view/all")
+    public ResponseEntity<ApiResponse<List<TicketSearchResponseDto>>> searchAllTicket(@ModelAttribute SearchDto searchDto) {
+        return ResponseUtil.createApiResponse(SUCCESS_VIEW_TICKET, ticketService.getAllTicket(searchDto));
+    }
 
     /**
      * 상품 등록 API
