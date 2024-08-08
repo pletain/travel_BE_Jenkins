@@ -102,6 +102,13 @@ public enum ErrorCode {
      * 상품 값이 부족함을 나타내는 상태 코드.
      */
     BAD_REQUEST_INVALID_TICKET_VALUES(HttpStatus.BAD_REQUEST, "2110", "[상품] 올바르지 않은 값을 입력하셨습니다."),
+
+    /**
+     * [장바구니] 값의 유효하지 않은 경우
+     */
+    BAD_REQUEST_INVALID_CART_VALUES(HttpStatus.UNAUTHORIZED, "4080", "[장바구니] 값이 유효하지 않습니다."),
+
+
     ;
 
     private final HttpStatus httpStatus;
