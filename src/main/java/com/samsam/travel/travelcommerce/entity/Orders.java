@@ -1,5 +1,6 @@
 package com.samsam.travel.travelcommerce.entity;
 
+import com.samsam.travel.travelcommerce.dto.order.OrderListResponse;
 import com.samsam.travel.travelcommerce.entity.model.OrderStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -65,4 +66,18 @@ public class Orders {
     public int hashCode() {
         return Objects.hash(orderId);
     }
+
+
+    public OrderListResponse toOrderListResponse() {
+        return OrderListResponse.builder()
+                .orderId(this.orderId)
+                .userId(this.user.getUserId())
+                .ticketId(this.ticket.getTicketId())
+                .orderDate(this.orderDate)
+                .totalAmount(this.totalAmount)
+                .quantity(this.quantity)
+                .status(this.status)
+                .build();
+    }
+
 }
