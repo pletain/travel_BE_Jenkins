@@ -103,9 +103,16 @@ public enum CommonCode {
     /**
      * 모든 주문 리스트 조회가 성공적으로 완료되었음을 나타내는 상태 코드.
      */
-    SUCCESS_ALL_ORDER_LIST(HttpStatus.OK, "2201", "모든 주문 리스트 조회가 완료되었습니다.")
-    ;
+    SUCCESS_ALL_ORDER_LIST(HttpStatus.OK, "2201", "모든 주문 리스트 조회가 완료되었습니다."),
 
+    /**
+     * 주문 취소가 성공적으로 완료되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_ORDER_CANCEL(HttpStatus.OK, "2202", "%s 주문이 성공적으로 취소되었습니다."),
+
+
+
+    ;
     private final HttpStatus httpStatus;
     private final String statusCode;
     private final String message;
