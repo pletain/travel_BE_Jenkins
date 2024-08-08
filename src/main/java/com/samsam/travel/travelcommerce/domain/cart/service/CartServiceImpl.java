@@ -2,7 +2,6 @@ package com.samsam.travel.travelcommerce.domain.cart.service;
 
 import com.samsam.travel.travelcommerce.domain.cart.repository.CartRepository;
 import com.samsam.travel.travelcommerce.dto.cart.CartDto;
-import com.samsam.travel.travelcommerce.dto.ticket.TicketDto;
 import com.samsam.travel.travelcommerce.entity.Cart;
 import com.samsam.travel.travelcommerce.utils.Common;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +19,8 @@ public class CartServiceImpl implements CartService {
     private final Common common;
 
     @Override
-    public List<TicketDto> getMyCartTicket(CartDto cartDto) {
-        return repository.findMyCart(cartDto).stream().map(TicketDto::convertEntityToDto).collect(Collectors.toList());
+    public List<CartDto> getMyCartTicket(CartDto cartDto) {
+        return repository.findMyCart(cartDto).stream().map(CartDto::convertEntityToDto).collect(Collectors.toList());
     }
 
     @Override

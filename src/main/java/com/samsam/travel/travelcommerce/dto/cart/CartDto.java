@@ -23,7 +23,7 @@ public class CartDto {
     private LocalDateTime registDate;
     private LocalDateTime updateDate;
 
-    public CartDto convertEntityToDto(Cart cart) {
+    public static CartDto convertEntityToDto(Cart cart) {
         return new CartDto(
             cart.getCartId(),
             cart.getUser(),
