@@ -36,11 +36,22 @@ public class TicketController {
      * 상품 리스트 조회 API
      *
      * @param searchDto 검색 정보가 담겨져 있음(keyword, pageNum, pageSize)
-     * @return 상품 삭제 성공 여부, 문구와 상품 데이터
+     * @return 상품 조회 성공 여부, 문구와 상품 데이터
      */
     @GetMapping("/view/all")
     public ResponseEntity<ApiResponse<List<TicketSearchResponseDto>>> searchAllTicket(@ModelAttribute SearchDto searchDto) {
         return ResponseUtil.createApiResponse(SUCCESS_VIEW_TICKET, ticketService.getAllTicket(searchDto));
+    }
+
+    /**
+     * 상품 상세보기 조회 API
+     *
+     * @param ticketId 상품의 키 값
+     * @return 상품 상세 조회 성공 여부, 문구와 상품 데이터
+     */
+    @GetMapping("/view/detail")
+    public ResponseEntity<ApiResponse<TicketDto>> searchTicketDetail(@RequestParam String ticketId) {
+        return ResponseUtil.createApiResponse(SUCCESS_VIEW_DETAIL_TICKET, ticketService.getTicketDetail(ticketId));
     }
 
     /**

@@ -11,6 +11,8 @@ public interface TicketService {
 
     public List<TicketSearchResponseDto> getAllTicket(SearchDto searchDto);
 
+    public TicketDto getTicketDetail(String ticketId);
+
     public TicketResponseDto addTicket(TicketDto ticketDto);
 
     public int updateTicket(TicketDto ticketDto);

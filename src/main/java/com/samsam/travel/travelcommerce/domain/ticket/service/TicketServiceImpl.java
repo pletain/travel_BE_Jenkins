@@ -36,6 +36,13 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    public TicketDto getTicketDetail(String ticketId) {
+        Ticket ticket = repository.findById(ticketId)
+                .orElseThrow(() -> new RuntimeException("Ticket not found with id " + ticketId));
+        return TicketDto.convertEntityToTicketDto(ticket);
+    }
+
+    @Override
     public TicketResponseDto addTicket(TicketDto ticketDto) {
         String ticketId = common.getTargetUuid("ticket");
         ticketDto.setTicketId(ticketId);

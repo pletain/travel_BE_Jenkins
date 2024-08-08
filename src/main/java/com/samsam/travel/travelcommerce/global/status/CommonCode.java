@@ -74,6 +74,11 @@ public enum CommonCode {
      */
     SUCCESS_VIEW_TICKET(HttpStatus.OK, "2103", "상품이 조회 되었습니다."),
 
+    /**
+     * 상품 상세 조회가 성공적으로 수정되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_VIEW_DETAIL_TICKET(HttpStatus.OK, "2104", "상품 상세 조회가 되었습니다."),
+
 
     /**
      * 주문 접수 성공 상태를 나타내는 상태 코드.
