@@ -79,6 +79,21 @@ public enum CommonCode {
      */
     SUCCESS_VIEW_DETAIL_TICKET(HttpStatus.OK, "2104", "상품 상세 조회가 되었습니다."),
 
+    /**
+     * 장바구니에 담긴 상품을 성공적으로 조회했음을 나타내는 상태 코드.
+     */
+    SUCCESS_VIEW_CART(HttpStatus.OK, "2110", "장바구니 내부 상품이 조회되었습니다."),
+
+    /**
+     * 장바구니에 상품을 성공적으로 담았음을 나타내는 상태 코드.
+     */
+    SUCCESS_ADD_CART(HttpStatus.OK, "2111", "장바구니에 상품이 담겼습니다."),
+
+    /**
+     * 장바구니에서 상품을 성공적으로 삭제 되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_DELETE_CART(HttpStatus.OK, "2112", "장바구니에서 상품이 삭제 되었습니다."),
+
 
     /**
      * 주문 접수 성공 상태를 나타내는 상태 코드.

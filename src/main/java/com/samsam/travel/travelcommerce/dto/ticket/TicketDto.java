@@ -25,7 +25,7 @@ public class TicketDto {
     private LocalDate startDate;
     private LocalDate endDate;
     private String deleteYn;
-    private String veiwYn;
+    private String viewYn;
     private LocalDateTime registDate;
     private LocalDateTime updateDate;
 
@@ -34,7 +34,7 @@ public class TicketDto {
         this.user = user;
     }
 
-    public static TicketDto convertEntityToTicketDto(Ticket ticket) {
+    public static TicketDto convertEntityToDto(Ticket ticket) {
         return new TicketDto(
                 ticket.getTicketId(),
                 ticket.getUser(),
@@ -45,7 +45,7 @@ public class TicketDto {
                 ticket.getStartDate(),
                 ticket.getEndDate(),
                 ticket.getDeleteYn(),
-                ticket.getVeiwYn(),
+                ticket.getViewYn(),
                 ticket.getRegistDate(),
                 ticket.getUpdateDate()
         );

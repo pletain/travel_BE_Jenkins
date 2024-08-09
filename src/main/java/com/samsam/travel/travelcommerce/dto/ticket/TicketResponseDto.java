@@ -65,7 +65,7 @@ public class TicketResponseDto {
                 ticket.getStartDate(),
                 ticket.getEndDate(),
                 ticket.getDeleteYn(),
-                ticket.getVeiwYn(),
+                ticket.getViewYn(),
                 ticket.getRegistDate(),
                 ticket.getUpdateDate()
         );

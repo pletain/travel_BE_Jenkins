@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS ticket (
     start_date      DATE                            NOT NULL                                                            COMMENT '시작일',
     end_date        DATE                            NOT NULL                                                            COMMENT '종료일',
     delete_yn       VARCHAR(1)                      NOT NULL    DEFAULT 'N'                                             COMMENT '삭제여부',
-    veiw_yn         VARCHAR(1)                      NOT NULL    DEFAULT 'N'                                             COMMENT '노출여부',
+    view_yn         VARCHAR(1)                      NOT NULL    DEFAULT 'N'                                             COMMENT '노출여부',
     regist_date     DATETIME                        NOT NULL    DEFAULT CURRENT_TIMESTAMP                               COMMENT '등록일',
     update_date     DATETIME                        NOT NULL    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP   COMMENT '수정일',
     FOREIGN KEY (user_id) REFERENCES user(user_id)
