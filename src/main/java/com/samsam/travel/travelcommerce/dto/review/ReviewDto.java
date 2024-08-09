@@ -30,7 +30,7 @@ public class ReviewDto {
         this.rating = reviewAddDto.getRating();
     }
 
-    public ReviewDto convertEntityToDto(Review review) {
+    public static ReviewDto convertEntityToDto(Review review) {
         return new ReviewDto(
             review.getReviewId(),
             review.getUser(),

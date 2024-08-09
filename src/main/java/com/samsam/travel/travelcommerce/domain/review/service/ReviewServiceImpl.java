@@ -2,10 +2,14 @@ package com.samsam.travel.travelcommerce.domain.review.service;
 
 import com.samsam.travel.travelcommerce.domain.review.repository.ReviewRepository;
 import com.samsam.travel.travelcommerce.dto.review.ReviewDto;
+import com.samsam.travel.travelcommerce.dto.ticket.TicketSearchResponseDto;
 import com.samsam.travel.travelcommerce.entity.Review;
 import com.samsam.travel.travelcommerce.utils.Common;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -35,5 +39,12 @@ public class ReviewServiceImpl implements ReviewService {
             return null;
         }
         return new ReviewDto().convertEntityToDto(repository.findMyReview(Review.convertDtoToEntity(reviewDto)));
+    }
+
+    @Override
+    public List<ReviewDto> getMyAllReview(ReviewDto reviewDto) {
+        return repository.findMyAllReview(Review.convertDtoToEntity(reviewDto)).stream()
+                .map(ReviewDto::convertEntityToDto)
+                .collect(Collectors.toList());
     }
 }

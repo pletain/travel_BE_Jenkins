@@ -97,12 +97,17 @@ public enum CommonCode {
     /**
      * 리뷰 등록이 성공적으로 등록되었음을 나타내는 상태 코드.
      */
-    SUCCESS_ADD_REVIEW(HttpStatus.OK, "2300", "리뷰가 등록 되었습니다."),
+    SUCCESS_ADD_REVIEW(HttpStatus.OK, "2120", "리뷰가 등록 되었습니다."),
 
     /**
      * 상품 등록이 성공적으로 등록되었음을 나타내는 상태 코드.
      */
-    SUCCESS_DELETE_REVIEW(HttpStatus.OK, "2301", "리뷰가 삭제 되었습니다."),
+    SUCCESS_DELETE_REVIEW(HttpStatus.OK, "2121", "리뷰가 삭제 되었습니다."),
+
+    /**
+     * 상품 등록이 성공적으로 등록되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_VIEW_MY_ALL_REVIEW(HttpStatus.OK, "2122", "내 리뷰 전체 조회를 성공하였습니다."),
 
 
     /**

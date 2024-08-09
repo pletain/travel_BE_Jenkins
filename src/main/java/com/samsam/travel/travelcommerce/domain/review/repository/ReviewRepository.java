@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface ReviewRepository extends JpaRepository<Review, String> {
 
     @Query(
@@ -18,6 +20,15 @@ public interface ReviewRepository extends JpaRepository<Review, String> {
             "AND r.deleteYn         =   'N' "
     )
     Review findMyReview(Review review);
+
+    @Query(
+        "SELECT " +
+            "r " +
+        "FROM Review r " +
+        "WHERE r.user.userId      =   :#{#review.user.userId} " +
+            "AND r.deleteYn         =   'N' "
+    )
+    List<Review> findMyAllReview(Review review);
 
     @Modifying
     @Transactional

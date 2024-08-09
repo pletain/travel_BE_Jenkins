@@ -17,8 +17,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_ADD_REVIEW;
-import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_DELETE_REVIEW;
+import java.util.List;
+
+import static com.samsam.travel.travelcommerce.global.status.CommonCode.*;
 import static com.samsam.travel.travelcommerce.global.status.ErrorCode.BAD_REQUEST_INVALID_REVIEW_VALUES;
 import static com.samsam.travel.travelcommerce.global.status.ErrorCode.DUPLICATED_REVIEW_VALUES;
 
@@ -79,6 +80,20 @@ public class ReviewController {
         reviewDto.setReviewId(reviewId);
 
         return ResponseUtil.createApiResponse(SUCCESS_DELETE_REVIEW, reviewService.removeReview(reviewDto));
+    }
+
+    /**
+     * 내 리뷰 전체 조회 API
+     *
+     * @param userDetails 인증된 관리자의 세부 정보. Spring Security 컨텍스트에서 가져옵니다.
+     * @return 리뷰 등록 성공 여부, 문구와 리뷰 데이터
+     */
+    @GetMapping("/view/my")
+    public ResponseEntity<ApiResponse<List<ReviewDto>>> getMyAllReview(@AuthenticationPrincipal UserDetails userDetails) {
+        ReviewDto reviewDto = new ReviewDto();
+        setUser(userDetails, reviewDto);
+
+        return ResponseUtil.createApiResponse(SUCCESS_VIEW_MY_ALL_REVIEW, reviewService.getMyAllReview(reviewDto));
     }
 
     /**
