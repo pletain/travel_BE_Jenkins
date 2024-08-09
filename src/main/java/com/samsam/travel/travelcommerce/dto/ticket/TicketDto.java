@@ -36,18 +36,18 @@ public class TicketDto {
 
     public static TicketDto convertEntityToDto(Ticket ticket) {
         return new TicketDto(
-                ticket.getTicketId(),
-                ticket.getUser(),
-                ticket.getTitle(),
-                ticket.getContents(),
-                ticket.getPlace(),
-                ticket.getPrice(),
-                ticket.getStartDate(),
-                ticket.getEndDate(),
-                ticket.getDeleteYn(),
-                ticket.getViewYn(),
-                ticket.getRegistDate(),
-                ticket.getUpdateDate()
+            ticket.getTicketId(),
+            ticket.getUser(),
+            ticket.getTitle(),
+            ticket.getContents(),
+            ticket.getPlace(),
+            ticket.getPrice(),
+            ticket.getStartDate(),
+            ticket.getEndDate(),
+            ticket.getDeleteYn(),
+            ticket.getViewYn(),
+            ticket.getRegistDate(),
+            ticket.getUpdateDate()
         );
     }
 

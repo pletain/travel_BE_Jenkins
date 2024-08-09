@@ -17,9 +17,9 @@ import java.time.LocalDateTime;
 @Setter
 public class ReviewDto {
     private String reviewId;
-    private User user;
-    private Orders orders;
-    private Ticket ticket;
+    private String userId;
+    private String ordersId;
+    private String ticketId;
     private String comment;
     private float rating;
     private String deleteYn;
@@ -33,9 +33,9 @@ public class ReviewDto {
     public static ReviewDto convertEntityToDto(Review review) {
         return new ReviewDto(
             review.getReviewId(),
-            review.getUser(),
-            review.getOrders(),
-            review.getTicket(),
+            review.getUser().getUserId(),
+            review.getOrders().getOrderId(),
+            review.getTicket().getTicketId(),
             review.getComment(),
             review.getRating(),
             review.getDeleteYn(),
