@@ -6,6 +6,8 @@ public interface ReviewService {
 
     public ReviewDto addReview(ReviewDto reviewDto);
 
+    public boolean removeReview(ReviewDto reviewDto);
+
     public ReviewDto getMyOrderReview(ReviewDto reviewDto);
 
 }

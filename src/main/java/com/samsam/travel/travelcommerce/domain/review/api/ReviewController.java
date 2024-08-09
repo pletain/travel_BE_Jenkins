@@ -10,16 +10,15 @@ import com.samsam.travel.travelcommerce.global.error.exception.ReviewDuplicatedE
 import com.samsam.travel.travelcommerce.global.error.exception.ReviewInvalidInputException;
 import com.samsam.travel.travelcommerce.utils.ApiResponse;
 import com.samsam.travel.travelcommerce.utils.ResponseUtil;
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_ADD_REVIEW;
+import static com.samsam.travel.travelcommerce.global.status.CommonCode.SUCCESS_DELETE_REVIEW;
 import static com.samsam.travel.travelcommerce.global.status.ErrorCode.BAD_REQUEST_INVALID_REVIEW_VALUES;
 import static com.samsam.travel.travelcommerce.global.status.ErrorCode.DUPLICATED_REVIEW_VALUES;
 
@@ -63,6 +62,24 @@ public class ReviewController {
         return ResponseUtil.createApiResponse(SUCCESS_ADD_REVIEW, reviewService.addReview(reviewDto));
     }
 
+    /**
+     * 리뷰 삭제 API
+     *
+     * @param reviewId 리뷰 번호
+     * @return 리뷰 등록 성공 여부, 문구와 리뷰 데이터
+     */
+    @DeleteMapping("/remove")
+    public ResponseEntity<ApiResponse<Boolean>> removeReview(@AuthenticationPrincipal UserDetails userDetails, @RequestParam String reviewId) {
+        if(StringUtils.isBlank(reviewId)) {
+            throw new ReviewInvalidInputException(BAD_REQUEST_INVALID_REVIEW_VALUES);
+        }
+
+        ReviewDto reviewDto = new ReviewDto();
+        setUser(userDetails, reviewDto);
+        reviewDto.setReviewId(reviewId);
+
+        return ResponseUtil.createApiResponse(SUCCESS_DELETE_REVIEW, reviewService.removeReview(reviewDto));
+    }
 
     /**
      * Respose

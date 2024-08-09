@@ -20,11 +20,20 @@ public class ReviewServiceImpl implements ReviewService {
         String reviewId = common.getTargetUuid("review");
         reviewDto.setReviewId(reviewId);
 
-        return new ReviewDto().convertEntityToDto(repository.save(Review.convertDtoToEntity(reviewDto)));
+         return new ReviewDto().convertEntityToDto(repository.save(Review.convertDtoToEntity(reviewDto)));
+    }
+
+    @Override
+    public boolean removeReview(ReviewDto reviewDto) {
+        return repository.deleteMyReview(Review.convertDtoToEntity(reviewDto)) > 0;
     }
 
     @Override
     public ReviewDto getMyOrderReview(ReviewDto reviewDto) {
+        Review review = repository.findMyReview(Review.convertDtoToEntity(reviewDto));
+        if(review == null) {
+            return null;
+        }
         return new ReviewDto().convertEntityToDto(repository.findMyReview(Review.convertDtoToEntity(reviewDto)));
     }
 }

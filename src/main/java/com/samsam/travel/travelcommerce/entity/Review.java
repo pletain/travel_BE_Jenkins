@@ -50,6 +50,9 @@ public class Review {
     @NotNull
     private float rating;
 
+    @Column(name = "delete_yn", nullable = false, length = 1)
+    private String deleteYn;
+
     @Column(name = "regist_date", nullable = false, updatable = false)
     private LocalDateTime registDate;
 
@@ -74,6 +77,7 @@ public class Review {
                 .ticket(reviewDto.getTicket())
                 .comment(reviewDto.getComment())
                 .rating(reviewDto.getRating())
+                .deleteYn("N")
                 .build();
     }
 

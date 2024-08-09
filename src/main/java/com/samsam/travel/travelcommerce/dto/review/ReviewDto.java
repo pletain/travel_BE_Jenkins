@@ -22,6 +22,7 @@ public class ReviewDto {
     private Ticket ticket;
     private String comment;
     private float rating;
+    private String deleteYn;
     private LocalDateTime registDate;
 
     public void setReviewAddData(ReviewAddDto reviewAddDto) {
@@ -37,6 +38,7 @@ public class ReviewDto {
             review.getTicket(),
             review.getComment(),
             review.getRating(),
+            review.getDeleteYn(),
             review.getRegistDate()
         );
     }

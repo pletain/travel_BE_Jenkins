@@ -99,6 +99,11 @@ public enum CommonCode {
      */
     SUCCESS_ADD_REVIEW(HttpStatus.OK, "2300", "리뷰가 등록 되었습니다."),
 
+    /**
+     * 상품 등록이 성공적으로 등록되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_DELETE_REVIEW(HttpStatus.OK, "2301", "리뷰가 삭제 되었습니다."),
+
 
     /**
      * 주문 접수 성공 상태를 나타내는 상태 코드.
