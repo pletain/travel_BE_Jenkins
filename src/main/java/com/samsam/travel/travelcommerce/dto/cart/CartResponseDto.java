@@ -16,6 +16,9 @@ public class CartResponseDto {
     private String cartId;
     private String userId;
     private String ticketId;
+    private String title;
+    private int price;
+    private int totalPrice;
     private int quantity;
     private String deleteYn;
     private LocalDateTime registDate;
@@ -26,6 +29,9 @@ public class CartResponseDto {
             cart.getCartId(),
             cart.getUser().getUserId(),
             cart.getTicket().getTicketId(),
+            cart.getTicket().getTitle(),
+            cart.getTicket().getPrice(),
+            cart.getTicket().getPrice() * cart.getQuantity(),
             cart.getQuantity(),
             cart.getDeleteYn(),
             cart.getRegistDate(),
@@ -38,8 +44,11 @@ public class CartResponseDto {
             cart.getCartId(),
             cart.getUser().getUserId(),
             cart.getTicket().getTicketId(),
+            cart.getTicket().getTitle(),
+            cart.getTicket().getPrice(),
+            cart.getTicket().getPrice() * quantity,
             quantity,
-            cart.getDeleteYn(),
+            "N",
             cart.getRegistDate(),
             cart.getUpdateDate()
         );

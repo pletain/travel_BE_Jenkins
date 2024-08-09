@@ -26,7 +26,7 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
             "WHERE t.ticketId   =   :#{#ticket.ticketId} " +
             "AND t.user.userId  =   :#{#ticket.user.userId}"
         )
-    int updateTicket(@Param("ticket") Ticket ticket);
+    int updateTicket(Ticket ticket);
 
     @Query(
             "SELECT " +
