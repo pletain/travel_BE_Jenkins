@@ -4,6 +4,7 @@ import com.samsam.travel.travelcommerce.domain.order.repository.OrderRepository;
 import com.samsam.travel.travelcommerce.domain.ticket.repository.TicketRepository;
 import com.samsam.travel.travelcommerce.domain.user.repository.UserRepository;
 import com.samsam.travel.travelcommerce.dto.order.OrderDetail;
+import com.samsam.travel.travelcommerce.dto.order.OrderListResponse;
 import com.samsam.travel.travelcommerce.dto.order.OrderRequest;
 import com.samsam.travel.travelcommerce.entity.Orders;
 import com.samsam.travel.travelcommerce.entity.Ticket;
@@ -57,6 +58,14 @@ public class OrderService {
                 .collect(Collectors.toList());
 
         orderRepository.saveAll(ordersList);
+    }
+
+    public List<OrderListResponse> getAllOrders(String userId) {
+
+        return orderRepository.findOrdersByUserId(userId)
+                .stream()
+                .map(Orders::toOrderListResponse)
+                .collect(Collectors.toList());
     }
 
     /**

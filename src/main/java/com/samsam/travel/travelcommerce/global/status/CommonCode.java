@@ -100,6 +100,10 @@ public enum CommonCode {
      */
     SUCCESS_ORDER_CREATE(HttpStatus.OK, "2200", "주문이 성공적으로 접수되었습니다."),
 
+    /**
+     * 모든 주문 리스트 조회가 성공적으로 완료되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_ALL_ORDER_LIST(HttpStatus.OK, "2201", "모든 주문 리스트 조회가 완료되었습니다.")
     ;
 
     private final HttpStatus httpStatus;
