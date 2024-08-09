@@ -36,7 +36,7 @@ public class TicketServiceImpl implements TicketService {
     public TicketDto getTicketDetail(String ticketId) {
         Ticket ticket = repository.findById(ticketId)
                 .orElseThrow(() -> new RuntimeException("Ticket not found with id " + ticketId));
-        return TicketDto.convertEntityToTicketDto(ticket);
+        return TicketDto.convertEntityToDto(ticket);
     }
 
     @Override
