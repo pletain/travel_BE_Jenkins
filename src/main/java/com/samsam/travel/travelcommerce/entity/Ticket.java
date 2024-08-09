@@ -96,7 +96,7 @@ public class Ticket {
                 .startDate(ticketDto.getStartDate())
                 .endDate(ticketDto.getEndDate())
                 .deleteYn("Y")
-                .veiwYn("Y")
+                .viewYn("Y")
                 .build();
     }
 }
