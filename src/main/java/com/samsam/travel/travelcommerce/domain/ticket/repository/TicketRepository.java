@@ -1,11 +1,14 @@
 package com.samsam.travel.travelcommerce.domain.ticket.repository;
 
 import com.samsam.travel.travelcommerce.entity.Ticket;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public interface TicketRepository extends JpaRepository<Ticket, String> {
 
@@ -22,6 +25,29 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
                 "t.endDate      =   :#{#ticket.endDate} " +
             "WHERE t.ticketId   =   :#{#ticket.ticketId} " +
             "AND t.user.userId  =   :#{#ticket.user.userId}"
-    )
+        )
     int updateTicket(@Param("ticket") Ticket ticket);
+
+    @Query(
+            "SELECT " +
+                "t.ticketId, " +
+                "t.user, " +
+                "t.title, " +
+                "t.place, " +
+                "t.price, " +
+                "t.startDate, " +
+                "t.endDate, " +
+                "t.deleteYn, " +
+                "t.registDate, " +
+                "t.updateDate, " +
+                "COALESCE(AVG(r.rating), 0) as avgRating " +
+            "FROM TicketAndReview t " +
+                "LEFT JOIN t.reviews r " +
+            "WHERE t.title LIKE %:#{#keyword}% " +
+                "OR t.user.name LIKE %:#{#keyword}% " +
+                "OR t.place LIKE %:#{#keyword}% " +
+            "GROUP BY t.ticketId " +
+            "ORDER BY t.registDate "
+    )
+    List<Object[]> findAll(String keyword, Pageable pageable);
 }

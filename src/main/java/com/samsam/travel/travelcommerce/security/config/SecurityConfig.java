@@ -74,6 +74,7 @@ public class SecurityConfig {
                         .requestMatchers("/v3/api-docs/**").permitAll()
                         .requestMatchers("/swagger*/**").permitAll()
                         .requestMatchers("/auth/**").permitAll() // auth로 시작하는 URI는 인증 없이 접근 가능
+                        .requestMatchers("/api/tickets/view/*").permitAll() // 조회는 권한 없이 수행
                         .requestMatchers("/api/master/**").hasAuthority(Role.MASTER.toString()) // /api/master/**는 MASTER 권한이 있는 사용자만 접근 가능
                         .requestMatchers("/api/admin/**").hasAnyAuthority(Role.ADMIN.toString(), Role.MASTER.toString()) // /api/admin/**는 ADMIN 또는 MASTER 권한이 있는 사용자만 접근 가능
                         .requestMatchers("/api/**").authenticated() // /api/**로 시작하는 모든 URI는 인증 필요
