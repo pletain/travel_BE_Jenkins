@@ -56,6 +56,11 @@ public enum ErrorCode {
      */
     NOT_EXIST_TICKET(HttpStatus.NOT_FOUND, "4043", "존재하지 않는 티켓입니다."),
 
+    /**
+     * 존재하지 않는 주문을 나타내는 에러 코드.
+     */
+    NOT_EXIST_ORDER(HttpStatus.NOT_FOUND, "4100", "존재하지 않는 주문입니다."),
+
     // Common
     /**
      * 허용되지 않은 메소드를 나타내는 에러 코드.

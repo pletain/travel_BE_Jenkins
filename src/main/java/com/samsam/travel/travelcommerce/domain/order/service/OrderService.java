@@ -9,8 +9,10 @@ import com.samsam.travel.travelcommerce.dto.order.OrderRequest;
 import com.samsam.travel.travelcommerce.entity.Orders;
 import com.samsam.travel.travelcommerce.entity.Ticket;
 import com.samsam.travel.travelcommerce.entity.User;
+import com.samsam.travel.travelcommerce.global.error.exception.ResourceNotFoundException;
 import com.samsam.travel.travelcommerce.global.error.exception.TicketNotFoundException;
 import com.samsam.travel.travelcommerce.global.error.exception.UserNotFoundException;
+import com.samsam.travel.travelcommerce.global.error.exception.UserUnauthorizedException;
 import com.samsam.travel.travelcommerce.utils.Common;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +25,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static com.samsam.travel.travelcommerce.entity.model.OrderStatus.P;
-import static com.samsam.travel.travelcommerce.global.status.ErrorCode.NOT_EXIST_TICKET;
-import static com.samsam.travel.travelcommerce.global.status.ErrorCode.NOT_EXIST_USER;
+import static com.samsam.travel.travelcommerce.global.status.ErrorCode.*;
 
 /**
  * 주문 관련 작업을 담당하는 서비스 클래스입니다.
@@ -66,6 +67,25 @@ public class OrderService {
                 .stream()
                 .map(Orders::toOrderListResponse)
                 .collect(Collectors.toList());
+    }
+
+    /**
+ * 지정된 주문 ID와 사용자 ID를 기반으로 주문을 취소합니다.
+ *
+ * @param orderId 취소할 주문의 고유 ID
+ * @param userId 취소할 주문을 요청한 사용자의 ID
+ * @throws ResourceNotFoundException 존재하지 않는 주문 ID로 취소하려고 할 때
+ * @throws UserUnauthorizedException 사용자가 취소할 권한이 없을 때
+ */
+public void cancelOrder(String orderId, String userId) {
+        Orders order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ResourceNotFoundException(NOT_EXIST_ORDER));
+
+        if (!userId.equals(order.getUser().getUserId())) {
+            throw new UserUnauthorizedException(NO_AUTH);
+        }
+
+        orderRepository.delete(order);
     }
 
     /**
