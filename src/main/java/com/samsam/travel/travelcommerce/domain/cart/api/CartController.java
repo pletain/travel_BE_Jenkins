@@ -3,6 +3,7 @@ package com.samsam.travel.travelcommerce.domain.cart.api;
 import com.samsam.travel.travelcommerce.domain.cart.service.CartService;
 import com.samsam.travel.travelcommerce.dto.cart.CartAddDto;
 import com.samsam.travel.travelcommerce.dto.cart.CartDto;
+import com.samsam.travel.travelcommerce.dto.cart.CartResponseDto;
 import com.samsam.travel.travelcommerce.entity.Ticket;
 import com.samsam.travel.travelcommerce.entity.User;
 import com.samsam.travel.travelcommerce.global.error.exception.CartInvalidInputException;
@@ -41,7 +42,7 @@ public class CartController {
      * @return 조회 성공 여부 및 문구, 장바구느에 담긴 티켓 데이터
      */
     @GetMapping("/view")
-    public ResponseEntity<ApiResponse<List<CartDto>>> viewMyCartTicket(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<ApiResponse<List<CartResponseDto>>> viewMyCartTicket(@AuthenticationPrincipal UserDetails userDetails) {
         CartDto cartDto = new CartDto();
         setUser(userDetails, cartDto);
         return ResponseUtil.createApiResponse(SUCCESS_VIEW_CART, cartService.getMyCartTicket(cartDto));
@@ -54,7 +55,7 @@ public class CartController {
      * @return 조회 성공 여부 및 문구, 장바구느에 담긴 티켓 데이터
      */
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse<CartDto>> addMyCart(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute CartAddDto cartAddDto) {
+    public ResponseEntity<ApiResponse<CartResponseDto>> addMyCart(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute CartAddDto cartAddDto) {
         if(cartAddDto.isValidate()) {
             throw new CartInvalidInputException(BAD_REQUEST_INVALID_CART_VALUES);
         }

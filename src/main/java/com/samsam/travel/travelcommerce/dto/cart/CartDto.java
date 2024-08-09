@@ -16,8 +16,8 @@ import java.time.LocalDateTime;
 @Setter
 public class CartDto {
     private String cartId;
-    private String userId;
-    private String ticketId;
+    private User user;
+    private Ticket ticket;
     private int quantity;
     private String deleteYn;
     private LocalDateTime registDate;
@@ -26,21 +26,9 @@ public class CartDto {
     public static CartDto convertEntityToDto(Cart cart) {
         return new CartDto(
             cart.getCartId(),
-            cart.getUser().getUserId(),
-            cart.getTicket().getTicketId(),
-            cart.getQuantity(),
-            cart.getDeleteYn(),
-            cart.getRegistDate(),
-            cart.getUpdateDate()
-        );
-    }
-
-    public CartDto convertUpdateEntityToDto(Cart cart, int quantity) {
-        return new CartDto(
-            cart.getCartId(),
             cart.getUser(),
             cart.getTicket(),
-            quantity,
+            cart.getQuantity(),
             cart.getDeleteYn(),
             cart.getRegistDate(),
             cart.getUpdateDate()

@@ -70,7 +70,7 @@ public class Review {
     }
 
     public static Review convertDtoToEntity(ReviewDto reviewDto) {
-        return new Review().builder()
+        return Review.builder()
                 .reviewId(reviewDto.getReviewId())
                 .user(reviewDto.getUser())
                 .orders(reviewDto.getOrders())
