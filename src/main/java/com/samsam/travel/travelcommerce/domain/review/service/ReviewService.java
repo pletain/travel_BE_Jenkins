@@ -14,4 +14,6 @@ public interface ReviewService {
 
     public List<ReviewDto> getMyAllReview(ReviewDto reviewDto);
 
+    public List<ReviewDto> getAllReviewByTicket(String ticketId);
+
 }

@@ -26,9 +26,20 @@ public interface ReviewRepository extends JpaRepository<Review, String> {
             "r " +
         "FROM Review r " +
         "WHERE r.user.userId      =   :#{#review.user.userId} " +
-            "AND r.deleteYn         =   'N' "
+            "AND r.deleteYn         =   'N' " +
+        "ORDER BY r.registDate DESC "
     )
     List<Review> findMyAllReview(Review review);
+
+    @Query(
+        "SELECT " +
+            "r " +
+        "FROM Review r " +
+        "WHERE r.ticket.ticketId      =   :#{#ticketId} " +
+            "AND r.deleteYn         =   'N' " +
+        "ORDER BY r.registDate DESC "
+    )
+    List<Review> findAllReviewByTicket(String ticketId);
 
     @Modifying
     @Transactional

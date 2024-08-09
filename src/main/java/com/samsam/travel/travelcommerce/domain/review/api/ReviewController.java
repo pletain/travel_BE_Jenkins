@@ -97,6 +97,17 @@ public class ReviewController {
     }
 
     /**
+     * 티켓에 해당하는 전체 리뷰 조회 API
+     *
+     * @param ticketId 티켓 번호
+     * @return 리뷰 등록 성공 여부, 문구와 리뷰 데이터
+     */
+    @GetMapping("/view/ticket")
+    public ResponseEntity<ApiResponse<List<ReviewDto>>> getAllReviewByTicket(@RequestParam String ticketId) {
+        return ResponseUtil.createApiResponse(SUCCESS_VIEW_ALL_REVIEW_BY_TICKET, reviewService.getAllReviewByTicket(ticketId));
+    }
+
+    /**
      * Respose
      *
      * @param reviewDto 리뷰에 대한 정보

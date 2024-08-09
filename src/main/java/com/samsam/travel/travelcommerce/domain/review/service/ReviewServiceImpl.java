@@ -47,4 +47,11 @@ public class ReviewServiceImpl implements ReviewService {
                 .map(ReviewDto::convertEntityToDto)
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ReviewDto> getAllReviewByTicket(String ticketId) {
+        return repository.findAllReviewByTicket(ticketId).stream()
+                .map(ReviewDto::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
 }
