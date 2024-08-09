@@ -104,7 +104,7 @@ public enum ErrorCode {
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "401", "유효하지 않은 JWT입니다."),
 
     /**
-     * 상품 값이 부족함을 나타내는 상태 코드.
+     * [상품] 값의 유효하지 않은 경우
      */
     BAD_REQUEST_INVALID_TICKET_VALUES(HttpStatus.BAD_REQUEST, "2110", "[상품] 올바르지 않은 값을 입력하셨습니다."),
 
@@ -113,6 +113,15 @@ public enum ErrorCode {
      */
     BAD_REQUEST_INVALID_CART_VALUES(HttpStatus.UNAUTHORIZED, "4080", "[장바구니] 값이 유효하지 않습니다."),
 
+    /**
+     * [리뷰] 값의 유효하지 않은 경우
+     */
+    BAD_REQUEST_INVALID_REVIEW_VALUES(HttpStatus.UNAUTHORIZED, "4090", "[리뷰] 값이 유효하지 않습니다."),
+
+    /**
+     * [리뷰] 이미 등록된 리뷰 인 경우
+     */
+    DUPLICATED_REVIEW_VALUES(HttpStatus.UNAUTHORIZED, "4091", "[리뷰] 이미 등록하신 리뷰입니다."),
 
     ;
 
