@@ -1,5 +1,6 @@
 package com.samsam.travel.travelcommerce.domain.ticket.repository;
 
+import com.samsam.travel.travelcommerce.dto.ticket.TicketDto;
 import com.samsam.travel.travelcommerce.entity.Ticket;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -50,4 +51,15 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
             "ORDER BY t.registDate "
     )
     List<Object[]> findAll(String keyword, Pageable pageable);
+
+
+    @Modifying
+    @Transactional
+    @Query(
+            "UPDATE Ticket t " +
+            "SET t.deleteYn         =   'Y' " +
+            "WHERE t.ticketId       =   :#{#ticket.ticketId} " +
+                "AND t.user.userId  =   :#{#ticket.user.userId} "
+    )
+    int deleteTicket(Ticket ticket);
 }

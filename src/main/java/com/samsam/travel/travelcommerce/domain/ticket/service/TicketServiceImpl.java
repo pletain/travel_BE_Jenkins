@@ -57,6 +57,6 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void removeTicket(TicketDto ticketDto) {
-        repository.delete(Ticket.convertDtoToEntity(ticketDto));
+        repository.deleteTicket(Ticket.convertDtoToEntity(ticketDto));
     }
 }
