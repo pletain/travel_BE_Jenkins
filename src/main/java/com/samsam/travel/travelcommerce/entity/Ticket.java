@@ -95,6 +95,8 @@ public class Ticket {
                 .price(ticketDto.getPrice())
                 .startDate(ticketDto.getStartDate())
                 .endDate(ticketDto.getEndDate())
+                .deleteYn("Y")
+                .viewYn("Y")
                 .build();
     }
 }

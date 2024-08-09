@@ -1,0 +1,57 @@
+package com.samsam.travel.travelcommerce.domain.review.service;
+
+import com.samsam.travel.travelcommerce.domain.review.repository.ReviewRepository;
+import com.samsam.travel.travelcommerce.dto.review.ReviewDto;
+import com.samsam.travel.travelcommerce.dto.ticket.TicketSearchResponseDto;
+import com.samsam.travel.travelcommerce.entity.Review;
+import com.samsam.travel.travelcommerce.utils.Common;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+@RequiredArgsConstructor
+public class ReviewServiceImpl implements ReviewService {
+
+    private final ReviewRepository repository;
+
+    private final Common common;
+
+    @Override
+    public ReviewDto addReview(ReviewDto reviewDto) {
+        String reviewId = common.getTargetUuid("review");
+        reviewDto.setReviewId(reviewId);
+
+         return new ReviewDto().convertEntityToDto(repository.save(Review.convertDtoToEntity(reviewDto)));
+    }
+
+    @Override
+    public boolean removeReview(ReviewDto reviewDto) {
+        return repository.deleteMyReview(Review.convertDtoToEntity(reviewDto)) > 0;
+    }
+
+    @Override
+    public ReviewDto getMyOrderReview(ReviewDto reviewDto) {
+        Review review = repository.findMyReview(Review.convertDtoToEntity(reviewDto));
+        if(review == null) {
+            return null;
+        }
+        return new ReviewDto().convertEntityToDto(repository.findMyReview(Review.convertDtoToEntity(reviewDto)));
+    }
+
+    @Override
+    public List<ReviewDto> getMyAllReview(ReviewDto reviewDto) {
+        return repository.findMyAllReview(Review.convertDtoToEntity(reviewDto)).stream()
+                .map(ReviewDto::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ReviewDto> getAllReviewByTicket(String ticketId) {
+        return repository.findAllReviewByTicket(ticketId).stream()
+                .map(ReviewDto::convertEntityToDto)
+                .collect(Collectors.toList());
+    }
+}

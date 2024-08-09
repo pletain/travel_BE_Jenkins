@@ -94,6 +94,26 @@ public enum CommonCode {
      */
     SUCCESS_DELETE_CART(HttpStatus.OK, "2112", "장바구니에서 상품이 삭제 되었습니다."),
 
+    /**
+     * 리뷰 등록이 성공적으로 등록되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_ADD_REVIEW(HttpStatus.OK, "2120", "리뷰가 등록 되었습니다."),
+
+    /**
+     * 리뷰 삭제가 성공적으로 수행되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_DELETE_REVIEW(HttpStatus.OK, "2121", "리뷰가 삭제 되었습니다."),
+
+    /**
+     * 내가 쓴 리뷰가 성공적으로 조회되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_VIEW_MY_ALL_REVIEW(HttpStatus.OK, "2122", "내 리뷰 전체 조회를 성공하였습니다."),
+
+    /**
+     * 내가 쓴 리뷰가 성공적으로 조회되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_VIEW_ALL_REVIEW_BY_TICKET(HttpStatus.OK, "2123", "티겟에 대한 리뷰 조회를 성공하였습니다."),
+
 
     /**
      * 주문 접수 성공 상태를 나타내는 상태 코드.
