@@ -90,7 +90,7 @@ public class Ticket {
     }
 
     public static Ticket convertDtoToEntity(TicketDto ticketDto) {
-        return new Ticket().builder()
+        return Ticket.builder()
                 .ticketId(ticketDto.getTicketId())
                 .user(ticketDto.getUser())
                 .title(ticketDto.getTitle())
@@ -99,7 +99,7 @@ public class Ticket {
                 .price(ticketDto.getPrice())
                 .startDate(ticketDto.getStartDate())
                 .endDate(ticketDto.getEndDate())
-                .deleteYn("Y")
+                .deleteYn("N")
                 .viewYn("Y")
                 .build();
     }

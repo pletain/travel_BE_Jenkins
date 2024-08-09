@@ -1,7 +1,6 @@
 package com.samsam.travel.travelcommerce.dto.ticket;
 
 import com.samsam.travel.travelcommerce.entity.Ticket;
-import com.samsam.travel.travelcommerce.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -36,10 +36,10 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketDto getTicketDetail(String ticketId) {
+    public TicketResponseDto getTicketDetail(String ticketId) {
         Ticket ticket = repository.findById(ticketId)
                 .orElseThrow(() -> new UserNotFoundException(NOT_EXIST_USER));
-        return TicketDto.convertEntityToDto(ticket);
+        return new TicketResponseDto().convertEntityToDto(ticket);
     }
 
     @Override

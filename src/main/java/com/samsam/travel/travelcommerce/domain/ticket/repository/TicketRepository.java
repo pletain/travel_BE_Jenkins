@@ -1,6 +1,5 @@
 package com.samsam.travel.travelcommerce.domain.ticket.repository;
 
-import com.samsam.travel.travelcommerce.dto.ticket.TicketDto;
 import com.samsam.travel.travelcommerce.entity.Ticket;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -44,11 +43,15 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
                 "COALESCE(AVG(r.rating), 0) as avgRating " +
             "FROM Ticket t " +
                 "LEFT JOIN t.reviews r " +
-            "WHERE t.title LIKE %:#{#keyword}% " +
-                "OR t.user.name LIKE %:#{#keyword}% " +
-                "OR t.place LIKE %:#{#keyword}% " +
+            "WHERE t.deleteYn = 'N' " +
+                "AND " +
+                "( " +
+                    "t.title LIKE %:#{#keyword}% " +
+                    "OR t.user.name LIKE %:#{#keyword}% " +
+                    "OR t.place LIKE %:#{#keyword}% " +
+                ") " +
             "GROUP BY t.ticketId " +
-            "ORDER BY t.registDate "
+            "ORDER BY t.registDate DESC "
     )
     List<Object[]> findAll(String keyword, Pageable pageable);
 
@@ -61,5 +64,5 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
             "WHERE t.ticketId       =   :#{#ticket.ticketId} " +
                 "AND t.user.userId  =   :#{#ticket.user.userId} "
     )
-    int deleteTicket(Ticket ticket);
+    void deleteTicket(Ticket ticket);
 }
