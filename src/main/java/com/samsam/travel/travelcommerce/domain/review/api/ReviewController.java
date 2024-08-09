@@ -46,7 +46,7 @@ public class ReviewController {
      * @return 리뷰 등록 성공 여부, 문구와 리뷰 데이터
      */
     @PostMapping("/regist")
-    public ResponseEntity<ApiResponse<ReviewResponseDto>> addReview(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute ReviewAddDto reviewAddDto) {
+    public ResponseEntity<ApiResponse<ReviewResponseDto>> addReview(@AuthenticationPrincipal UserDetails userDetails, @RequestBody ReviewAddDto reviewAddDto) {
         if(reviewAddDto.isValidate()) {
             throw new ReviewInvalidInputException(BAD_REQUEST_INVALID_REVIEW_VALUES);
         }

@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 public class ReviewResponseDto {
     private String reviewId;
     private String userId;
+    private String userName;
     private String ordersId;
     private String ticketId;
     private String comment;
@@ -31,6 +32,7 @@ public class ReviewResponseDto {
         return new ReviewResponseDto(
             review.getReviewId(),
             review.getUser().getUserId(),
+            review.getUser().getName(),
             review.getOrders().getOrderId(),
             review.getTicket().getTicketId(),
             review.getComment(),
