@@ -41,7 +41,7 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
                 "t.registDate, " +
                 "t.updateDate, " +
                 "COALESCE(AVG(r.rating), 0) as avgRating " +
-            "FROM TicketAndReview t " +
+            "FROM Ticket t " +
                 "LEFT JOIN t.reviews r " +
             "WHERE t.title LIKE %:#{#keyword}% " +
                 "OR t.user.name LIKE %:#{#keyword}% " +
