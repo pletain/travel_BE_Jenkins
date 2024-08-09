@@ -110,6 +110,11 @@ public enum CommonCode {
      */
     SUCCESS_ORDER_CANCEL(HttpStatus.OK, "2202", "%s 주문이 성공적으로 취소되었습니다."),
 
+    /**
+     * 주문 승인 요청이 성공적으로 완료되었음을 나타내는 상태 코드.
+     */
+    SUCCESS_ORDER_APPROVE(HttpStatus.OK, "2203", "%s 주문이 성공적으로 승인되었습니다.");
+
 
 
     ;
