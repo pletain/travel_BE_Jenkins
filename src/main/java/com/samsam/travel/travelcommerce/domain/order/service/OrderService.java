@@ -9,6 +9,7 @@ import com.samsam.travel.travelcommerce.dto.order.OrderRequest;
 import com.samsam.travel.travelcommerce.entity.Orders;
 import com.samsam.travel.travelcommerce.entity.Ticket;
 import com.samsam.travel.travelcommerce.entity.User;
+import com.samsam.travel.travelcommerce.entity.model.Role;
 import com.samsam.travel.travelcommerce.global.error.exception.ResourceNotFoundException;
 import com.samsam.travel.travelcommerce.global.error.exception.TicketNotFoundException;
 import com.samsam.travel.travelcommerce.global.error.exception.UserNotFoundException;
@@ -70,14 +71,14 @@ public class OrderService {
     }
 
     /**
- * 지정된 주문 ID와 사용자 ID를 기반으로 주문을 취소합니다.
- *
- * @param orderId 취소할 주문의 고유 ID
- * @param userId 취소할 주문을 요청한 사용자의 ID
- * @throws ResourceNotFoundException 존재하지 않는 주문 ID로 취소하려고 할 때
- * @throws UserUnauthorizedException 사용자가 취소할 권한이 없을 때
- */
-public void cancelOrder(String orderId, String userId) {
+     * 지정된 주문 ID와 사용자 ID를 기반으로 주문을 취소합니다.
+     *
+     * @param orderId 취소할 주문의 고유 ID
+     * @param userId 취소할 주문을 요청한 사용자의 ID
+     * @throws ResourceNotFoundException 존재하지 않는 주문 ID로 취소하려고 할 때
+     * @throws UserUnauthorizedException 사용자가 취소할 권한이 없을 때
+     */
+    public void cancelOrder(String orderId, String userId) {
         Orders order = orderRepository.findById(orderId)
                 .orElseThrow(() -> new ResourceNotFoundException(NOT_EXIST_ORDER));
 
@@ -86,6 +87,20 @@ public void cancelOrder(String orderId, String userId) {
         }
 
         orderRepository.delete(order);
+    }
+
+    /**
+     * 지정된 주문 ID와 관리자 ID를 기반으로 주문을 승인합니다.
+     * 승인된 주문은 '완료'(C) 상태로 변경됩니다.
+     *
+     * @param orderId 승인할 주문의 고유 ID
+     * @param adminId 승인할 주문을 요청한 관리자의 ID
+     * @throws UserUnauthorizedException 사용자가 승인할 권한이 없는 경우
+     */
+    public void approveOrder(String orderId, String adminId) {
+        validateMasterRole(adminId);
+
+        orderRepository.completeOrderById(orderId);
     }
 
     /**
@@ -147,5 +162,17 @@ public void cancelOrder(String orderId, String userId) {
                 .quantity(orderDetail.getQuantity())
                 .status(P)
                 .build();
+    }
+
+    /**
+     * 관리자 역할을 확인합니다.
+     *
+     * @param adminId 인증된 관리자의 사용자 ID.
+     * @throws UserUnauthorizedException 사용자가 관리자가 아닌 경우 발생합니다.
+     */
+    private void validateMasterRole(String adminId) {
+        if(!userRepository.findRoleByUserId(adminId).equals(Role.MASTER)){
+            throw new UserUnauthorizedException(USER_NOT_MASTER);
+        }
     }
 }

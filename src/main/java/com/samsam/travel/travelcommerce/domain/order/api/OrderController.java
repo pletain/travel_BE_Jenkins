@@ -62,4 +62,19 @@ public class OrderController {
         String formattedMessage = String.format(SUCCESS_ORDER_CANCEL.getMessage(), orderId);
         return ResponseUtil.createApiResponse(SUCCESS_ORDER_CANCEL, formattedMessage);
     }
+
+    /**
+ * 주문을 승인합니다.
+ *
+ * @param userDetails 승인할 주문을 요청한 사용자. 인증 주체에서 가져옵니다.
+ * @param orderId 승인할 주문의 ID.
+ * @return 성공 상태와 메시지를 포함하는 API 응답을 포함하는 응답 엔티티.
+ *         승인 성공 시, SUCCESS_ORDER_APPROVE 상태와 승인된 주문 ID를 포함하는 메시지를 반환합니다.
+ */
+@GetMapping("/{orderId}/approve")
+public ResponseEntity<ApiResponse> approveOrder(@AuthenticationPrincipal UserDetails userDetails, @PathVariable String orderId) {
+    orderService.approveOrder(orderId, userDetails.getUsername());
+    String formattedMessage = String.format(SUCCESS_ORDER_APPROVE.getMessage(), orderId);
+    return ResponseUtil.createApiResponse(SUCCESS_ORDER_APPROVE, formattedMessage);
+}
 }
