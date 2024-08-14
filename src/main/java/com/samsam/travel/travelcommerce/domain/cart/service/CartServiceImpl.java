@@ -2,6 +2,7 @@ package com.samsam.travel.travelcommerce.domain.cart.service;
 
 import com.samsam.travel.travelcommerce.domain.cart.repository.CartRepository;
 import com.samsam.travel.travelcommerce.dto.cart.CartDto;
+import com.samsam.travel.travelcommerce.dto.cart.CartResponseDto;
 import com.samsam.travel.travelcommerce.entity.Cart;
 import com.samsam.travel.travelcommerce.utils.Common;
 import lombok.RequiredArgsConstructor;
@@ -19,23 +20,23 @@ public class CartServiceImpl implements CartService {
     private final Common common;
 
     @Override
-    public List<CartDto> getMyCartTicket(CartDto cartDto) {
-        return repository.findMyCart(cartDto).stream().map(CartDto::convertEntityToDto).collect(Collectors.toList());
+    public List<CartResponseDto> getMyCartTicket(CartDto cartDto) {
+        return repository.findMyCart(cartDto).stream().map(CartResponseDto::convertEntityToDto).collect(Collectors.toList());
     }
 
     @Override
-    public CartDto addMyCart(CartDto cartDto) {
+    public CartResponseDto addMyCart(CartDto cartDto) {
         Cart cart = repository.findMyCartTicket(cartDto);
 
         if(cart != null) {
             cartDto.setCartId(cart.getCartId());
             repository.updateCart(new Cart().convertDtoToEntity(cartDto));
-            return new CartDto().convertUpdateEntityToDto(cart, cartDto.getQuantity());
+            return CartResponseDto.convertUpdateEntityToDto(cart, cartDto.getQuantity());
         }
 
         String cartId = common.getTargetUuid("cart");
         cartDto.setCartId(cartId);
-        return new CartDto().convertEntityToDto(repository.save(new Cart().convertDtoToEntity(cartDto)));
+        return CartResponseDto.convertEntityToDto(repository.save(new Cart().convertDtoToEntity(cartDto)));
     }
 
     @Override

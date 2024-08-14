@@ -18,9 +18,9 @@ public interface CartRepository extends JpaRepository<Cart, String> {
         "WHERE c.user = :#{#cartDto.user} " +
             "AND c.deleteYn = 'N' " +
             "AND c.ticket.deleteYn = 'N' " +
-        "ORDER BY c.registDate "
+        "ORDER BY c.registDate DESC "
     )
-    List<Cart> findMyCart(@Param("cartDto") CartDto cartDto);
+    List<Cart> findMyCart(CartDto cartDto);
 
     @Query(
         "SELECT " +
@@ -29,18 +29,19 @@ public interface CartRepository extends JpaRepository<Cart, String> {
         "WHERE c.user = :#{#cartDto.user} " +
             "AND  c.ticket = :#{#cartDto.ticket} "
     )
-    Cart findMyCartTicket(@Param("cartDto") CartDto cartDto);
+    Cart findMyCartTicket(CartDto cartDto);
 
     @Modifying
     @Transactional
     @Query(
         "UPDATE Cart c " +
-        "SET c.quantity     =   :#{#cart.quantity} " +
+        "SET c.quantity     =   :#{#cart.quantity}, " +
+            "c.deleteYn     =   'N' " +
         "WHERE c.cartId     =   :#{#cart.cartId} " +
             "AND c.user     =   :#{#cart.user} " +
             "AND c.ticket   =   :#{#cart.ticket} "
     )
-    int updateCart(@Param("cart") Cart cart);
+    int updateCart(Cart cart);
 
     @Modifying
     @Transactional
@@ -49,5 +50,5 @@ public interface CartRepository extends JpaRepository<Cart, String> {
         "SET c.deleteYn     =   'Y' " +
         "WHERE c.cartId     =   :#{#cartId} "
     )
-    int deleteCart(@Param("cartId") String cartId);
+    int deleteCart(String cartId);
 }

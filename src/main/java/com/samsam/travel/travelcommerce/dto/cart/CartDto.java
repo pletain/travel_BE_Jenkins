@@ -34,16 +34,4 @@ public class CartDto {
             cart.getUpdateDate()
         );
     }
-
-    public CartDto convertUpdateEntityToDto(Cart cart, int quantity) {
-        return new CartDto(
-            cart.getCartId(),
-            cart.getUser(),
-            cart.getTicket(),
-            quantity,
-            cart.getDeleteYn(),
-            cart.getRegistDate(),
-            cart.getUpdateDate()
-        );
-    }
 }

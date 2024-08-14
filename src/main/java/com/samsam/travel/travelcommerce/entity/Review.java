@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
@@ -53,6 +54,7 @@ public class Review {
     @Column(name = "delete_yn", nullable = false, length = 1)
     private String deleteYn;
 
+    @CreationTimestamp
     @Column(name = "regist_date", nullable = false, updatable = false)
     private LocalDateTime registDate;
 
@@ -70,7 +72,7 @@ public class Review {
     }
 
     public static Review convertDtoToEntity(ReviewDto reviewDto) {
-        return new Review().builder()
+        return Review.builder()
                 .reviewId(reviewDto.getReviewId())
                 .user(reviewDto.getUser())
                 .orders(reviewDto.getOrders())

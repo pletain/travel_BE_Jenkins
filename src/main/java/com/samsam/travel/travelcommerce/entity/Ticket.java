@@ -8,11 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -66,11 +69,16 @@ public class Ticket {
     @Column(name = "view_yn", nullable = false, length = 1)
     private String viewYn;
 
+    @CreationTimestamp
     @Column(name = "regist_date", nullable = false, updatable = false)
     private LocalDateTime registDate;
 
+    @UpdateTimestamp
     @Column(name = "update_date", nullable = false)
     private LocalDateTime updateDate;
+
+    @OneToMany(mappedBy = "ticket")
+    private List<Review> reviews = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
@@ -86,7 +94,7 @@ public class Ticket {
     }
 
     public static Ticket convertDtoToEntity(TicketDto ticketDto) {
-        return new Ticket().builder()
+        return Ticket.builder()
                 .ticketId(ticketDto.getTicketId())
                 .user(ticketDto.getUser())
                 .title(ticketDto.getTitle())
@@ -95,7 +103,7 @@ public class Ticket {
                 .price(ticketDto.getPrice())
                 .startDate(ticketDto.getStartDate())
                 .endDate(ticketDto.getEndDate())
-                .deleteYn("Y")
+                .deleteYn("N")
                 .viewYn("Y")
                 .build();
     }

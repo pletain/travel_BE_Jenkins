@@ -2,7 +2,7 @@ package com.samsam.travel.travelcommerce.domain.review.service;
 
 import com.samsam.travel.travelcommerce.domain.review.repository.ReviewRepository;
 import com.samsam.travel.travelcommerce.dto.review.ReviewDto;
-import com.samsam.travel.travelcommerce.dto.ticket.TicketSearchResponseDto;
+import com.samsam.travel.travelcommerce.dto.review.ReviewResponseDto;
 import com.samsam.travel.travelcommerce.entity.Review;
 import com.samsam.travel.travelcommerce.utils.Common;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +20,11 @@ public class ReviewServiceImpl implements ReviewService {
     private final Common common;
 
     @Override
-    public ReviewDto addReview(ReviewDto reviewDto) {
+    public ReviewResponseDto addReview(ReviewDto reviewDto) {
         String reviewId = common.getTargetUuid("review");
         reviewDto.setReviewId(reviewId);
 
-         return new ReviewDto().convertEntityToDto(repository.save(Review.convertDtoToEntity(reviewDto)));
+         return ReviewResponseDto.convertEntityToDto(repository.save(Review.convertDtoToEntity(reviewDto)));
     }
 
     @Override
@@ -33,25 +33,25 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewDto getMyOrderReview(ReviewDto reviewDto) {
+    public ReviewResponseDto getMyOrderReview(ReviewDto reviewDto) {
         Review review = repository.findMyReview(Review.convertDtoToEntity(reviewDto));
         if(review == null) {
             return null;
         }
-        return new ReviewDto().convertEntityToDto(repository.findMyReview(Review.convertDtoToEntity(reviewDto)));
+        return ReviewResponseDto.convertEntityToDto(repository.findMyReview(Review.convertDtoToEntity(reviewDto)));
     }
 
     @Override
-    public List<ReviewDto> getMyAllReview(ReviewDto reviewDto) {
+    public List<ReviewResponseDto> getMyAllReview(ReviewDto reviewDto) {
         return repository.findMyAllReview(Review.convertDtoToEntity(reviewDto)).stream()
-                .map(ReviewDto::convertEntityToDto)
+                .map(ReviewResponseDto::convertEntityToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<ReviewDto> getAllReviewByTicket(String ticketId) {
+    public List<ReviewResponseDto> getAllReviewByTicket(String ticketId) {
         return repository.findAllReviewByTicket(ticketId).stream()
-                .map(ReviewDto::convertEntityToDto)
+                .map(ReviewResponseDto::convertEntityToDto)
                 .collect(Collectors.toList());
     }
 }

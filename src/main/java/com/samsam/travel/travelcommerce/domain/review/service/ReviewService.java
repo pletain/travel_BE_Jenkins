@@ -1,19 +1,20 @@
 package com.samsam.travel.travelcommerce.domain.review.service;
 
 import com.samsam.travel.travelcommerce.dto.review.ReviewDto;
+import com.samsam.travel.travelcommerce.dto.review.ReviewResponseDto;
 
 import java.util.List;
 
 public interface ReviewService {
 
-    public ReviewDto addReview(ReviewDto reviewDto);
+    public ReviewResponseDto addReview(ReviewDto reviewDto);
 
     public boolean removeReview(ReviewDto reviewDto);
 
-    public ReviewDto getMyOrderReview(ReviewDto reviewDto);
+    public ReviewResponseDto getMyOrderReview(ReviewDto reviewDto);
 
-    public List<ReviewDto> getMyAllReview(ReviewDto reviewDto);
+    public List<ReviewResponseDto> getMyAllReview(ReviewDto reviewDto);
 
-    public List<ReviewDto> getAllReviewByTicket(String ticketId);
+    public List<ReviewResponseDto> getAllReviewByTicket(String ticketId);
 
 }

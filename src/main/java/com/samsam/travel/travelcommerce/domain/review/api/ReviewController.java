@@ -3,6 +3,7 @@ package com.samsam.travel.travelcommerce.domain.review.api;
 import com.samsam.travel.travelcommerce.domain.review.service.ReviewService;
 import com.samsam.travel.travelcommerce.dto.review.ReviewAddDto;
 import com.samsam.travel.travelcommerce.dto.review.ReviewDto;
+import com.samsam.travel.travelcommerce.dto.review.ReviewResponseDto;
 import com.samsam.travel.travelcommerce.entity.Orders;
 import com.samsam.travel.travelcommerce.entity.Ticket;
 import com.samsam.travel.travelcommerce.entity.User;
@@ -45,7 +46,7 @@ public class ReviewController {
      * @return 리뷰 등록 성공 여부, 문구와 리뷰 데이터
      */
     @PostMapping("/regist")
-    public ResponseEntity<ApiResponse<ReviewDto>> addReview(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute ReviewAddDto reviewAddDto) {
+    public ResponseEntity<ApiResponse<ReviewResponseDto>> addReview(@AuthenticationPrincipal UserDetails userDetails, @RequestBody ReviewAddDto reviewAddDto) {
         if(reviewAddDto.isValidate()) {
             throw new ReviewInvalidInputException(BAD_REQUEST_INVALID_REVIEW_VALUES);
         }
@@ -89,7 +90,7 @@ public class ReviewController {
      * @return 리뷰 등록 성공 여부, 문구와 리뷰 데이터
      */
     @GetMapping("/view/my")
-    public ResponseEntity<ApiResponse<List<ReviewDto>>> getMyAllReview(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<ApiResponse<List<ReviewResponseDto>>> getMyAllReview(@AuthenticationPrincipal UserDetails userDetails) {
         ReviewDto reviewDto = new ReviewDto();
         setUser(userDetails, reviewDto);
 
@@ -103,7 +104,7 @@ public class ReviewController {
      * @return 리뷰 등록 성공 여부, 문구와 리뷰 데이터
      */
     @GetMapping("/view/ticket")
-    public ResponseEntity<ApiResponse<List<ReviewDto>>> getAllReviewByTicket(@RequestParam String ticketId) {
+    public ResponseEntity<ApiResponse<List<ReviewResponseDto>>> getAllReviewByTicket(@RequestParam String ticketId) {
         return ResponseUtil.createApiResponse(SUCCESS_VIEW_ALL_REVIEW_BY_TICKET, reviewService.getAllReviewByTicket(ticketId));
     }
 

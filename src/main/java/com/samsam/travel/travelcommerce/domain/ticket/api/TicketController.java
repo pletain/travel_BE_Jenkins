@@ -57,7 +57,7 @@ public class TicketController {
      * @return 상품 상세 조회 성공 여부, 문구와 상품 데이터
      */
     @GetMapping("/view/detail")
-    public ResponseEntity<ApiResponse<TicketDto>> searchTicketDetail(@RequestParam String ticketId) {
+    public ResponseEntity<ApiResponse<TicketResponseDto>> searchTicketDetail(@RequestParam String ticketId) {
         if(StringUtils.isBlank(ticketId)) {
             throw new TicketInvalidInputException(BAD_REQUEST_INVALID_TICKET_VALUES);
         }
@@ -73,7 +73,7 @@ public class TicketController {
      * @return 상품 등록 성공 여부, 문구와 상품 데이터
      */
     @PostMapping("/regist")
-    public ResponseEntity<ApiResponse<TicketResponseDto>> addTicket(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute TicketDto ticketDto) {
+    public ResponseEntity<ApiResponse<TicketResponseDto>> addTicket(@AuthenticationPrincipal UserDetails userDetails, @RequestBody TicketDto ticketDto) {
         if(ticketDto.isValidate()) {
             throw new TicketInvalidInputException(BAD_REQUEST_INVALID_TICKET_VALUES);
         }
@@ -91,7 +91,7 @@ public class TicketController {
      * @return 상품 수정 성공 여부, 문구와 상품 데이터
      */
     @PutMapping("/modify")
-    public ResponseEntity<ApiResponse<Boolean>> updateTicket(@AuthenticationPrincipal UserDetails userDetails, @ModelAttribute TicketDto ticketDto) {
+    public ResponseEntity<ApiResponse<Boolean>> updateTicket(@AuthenticationPrincipal UserDetails userDetails, @RequestBody TicketDto ticketDto) {
         if(ticketDto.isValidate()) {
             throw new TicketInvalidInputException(BAD_REQUEST_INVALID_TICKET_VALUES);
         }
@@ -130,7 +130,7 @@ public class TicketController {
      * @return 상품 수정 여부, 문구와 상품 데이터
      */
     public TicketDto setUser(UserDetails userDetails, TicketDto ticketDto) {
-        ticketDto.setUser(getUser(userDetails));
+        ticketDto.setUser(getUserEntity(userDetails));
         return ticketDto;
     }
 
@@ -140,7 +140,7 @@ public class TicketController {
      * @param userDetails 인증된 관리자의 세부 정보. Spring Security 컨텍스트에서 가져옵니다.
      * @return User 정보를 담은 user Entity 반환
      */
-    public User getUser(UserDetails userDetails) {
+    public User getUserEntity(UserDetails userDetails) {
         return  User
                 .builder()
                 .userId(userDetails.getUsername())

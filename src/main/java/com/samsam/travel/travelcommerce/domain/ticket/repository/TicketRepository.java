@@ -26,7 +26,7 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
             "WHERE t.ticketId   =   :#{#ticket.ticketId} " +
             "AND t.user.userId  =   :#{#ticket.user.userId}"
         )
-    int updateTicket(@Param("ticket") Ticket ticket);
+    int updateTicket(Ticket ticket);
 
     @Query(
             "SELECT " +
@@ -41,13 +41,28 @@ public interface TicketRepository extends JpaRepository<Ticket, String> {
                 "t.registDate, " +
                 "t.updateDate, " +
                 "COALESCE(AVG(r.rating), 0) as avgRating " +
-            "FROM TicketAndReview t " +
+            "FROM Ticket t " +
                 "LEFT JOIN t.reviews r " +
-            "WHERE t.title LIKE %:#{#keyword}% " +
-                "OR t.user.name LIKE %:#{#keyword}% " +
-                "OR t.place LIKE %:#{#keyword}% " +
+            "WHERE t.deleteYn = 'N' " +
+                "AND " +
+                "( " +
+                    "t.title LIKE %:#{#keyword}% " +
+                    "OR t.user.name LIKE %:#{#keyword}% " +
+                    "OR t.place LIKE %:#{#keyword}% " +
+                ") " +
             "GROUP BY t.ticketId " +
-            "ORDER BY t.registDate "
+            "ORDER BY t.registDate DESC "
     )
     List<Object[]> findAll(String keyword, Pageable pageable);
+
+
+    @Modifying
+    @Transactional
+    @Query(
+            "UPDATE Ticket t " +
+            "SET t.deleteYn         =   'Y' " +
+            "WHERE t.ticketId       =   :#{#ticket.ticketId} " +
+                "AND t.user.userId  =   :#{#ticket.user.userId} "
+    )
+    void deleteTicket(Ticket ticket);
 }
