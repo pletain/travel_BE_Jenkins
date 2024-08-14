@@ -42,7 +42,7 @@ public class TicketController {
      * @return 상품 조회 성공 여부, 문구와 상품 데이터
      */
     @GetMapping("/view/all")
-    public ResponseEntity<ApiResponse<List<TicketSearchResponseDto>>> searchAllTicket(@RequestBody SearchDto searchDto) {
+    public ResponseEntity<ApiResponse<List<TicketSearchResponseDto>>> searchAllTicket(@ModelAttribute SearchDto searchDto) {
         if(searchDto.isValidate()) {
             throw new TicketInvalidInputException(BAD_REQUEST_INVALID_TICKET_VALUES);
         }
