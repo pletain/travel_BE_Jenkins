@@ -49,7 +49,7 @@ pipeline {
                 script {
                     sshagent([BASTION_HOST_SSH_KEY_ID, PRIVATE_INSTANCE_SSH_KEY_ID]) {
                         sh """
-                        ssh -o ProxyCommand="ssh -W %h:%p ubuntu@${PUBLIC_IP}" ubuntu@${PRIVATE_IP} <<EOF
+                        ssh -o StrictHostKeyChecking=no -o ProxyCommand="ssh -W %h:%p ubuntu@${PUBLIC_IP}" ubuntu@${PRIVATE_IP} <<EOF
                         docker pull ${ECR_REPO_URI}:${IMAGE_TAG}
                         sed -i 's|image: .*|image: ${ECR_REPO_URI}:${IMAGE_TAG}|' ${COMPOSE_FILE}
                         docker-compose -f ${COMPOSE_FILE} up -d --force-recreate
